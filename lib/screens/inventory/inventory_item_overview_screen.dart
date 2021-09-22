@@ -1,0 +1,1 @@
+//TODO: disegnare la schermata di dettaglio dell'elemento dell'inventario
