@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gestionale_main/models/real_items/disposable.dart';
+import 'package:gestionale_main/screens/inventory/disposable_detail_screen.dart';
 
 
 
 
 class WarehouseItemTile extends StatelessWidget {
   WarehouseItemTile({
+    required this.disposable,
     required this.imageReference,
     required this.title,
     required this.sellingPrice,
@@ -21,41 +24,53 @@ class WarehouseItemTile extends StatelessWidget {
 
   final String actualAvailability;
 
+  final Disposable disposable;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      // onTap: ()=> Navigator.pushNamed(context, navigateTo),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
+    return Card(
+      child: ListTile(
+        onTap: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>DisposableDetailScreen(disposable))),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
 
-      leading: CircleAvatar(
-                radius: 30,
-                child: Image.asset(imageReference),
-              ),
-      title: Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+        leading: CircleAvatar(
+                  radius: 30,
+                  child: Image.asset(imageReference),
                 ),
-      subtitle: Text('€ $sellingPrice'),
+        title: Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+        subtitle: Text('€ $sellingPrice'),
 
-      trailing: Column(
+        trailing: Column(
 
-              children: [
-                SizedBox(height: 8,),
-                Text('Availability'),
-                SizedBox(height: 10,),
-                Text(actualAvailability),
-              ],
-            ),
+                children: [
+                  SizedBox(height: 8,),
+                  Text('Availability'),
+                  SizedBox(height: 10,),
+                  Text(actualAvailability),
+                ],
+              ),
 
 
+
+
+      ),
     );
   }
+}
+
+
+void navigateToTappedItem(){
+
+
+
 }
 
 

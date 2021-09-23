@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestionale_main/data/inventory.dart';
-import 'package:gestionale_main/widgets/inventory_screen_items_view.dart';
+import 'package:gestionale_main/widgets/inventory_screen_items_listview.dart';
 import 'package:gestionale_main/widgets/warehouse_item_tile.dart';
 import 'package:gestionale_main/widgets/app_navigation_bar.dart';
 import 'package:provider/provider.dart';
@@ -88,172 +88,15 @@ bool isSearching = false;
               child: isSearching ? InventorySearchItemsView() : InventoryDefaultItemsView(),
             )
 
-            // Column(children: [
-            //
-            //   ///Lista dei DISPOSABLES
-            //   ExpansionTile(
-            //     title: Text('Disposable'),
-            //     initiallyExpanded: true,
-            //     children: [
-            //
-            //       ListView.separated(
-            //
-            //         separatorBuilder: (BuildContext context, int index) =>
-            //             Divider(),
-            //         physics: ClampingScrollPhysics(),/// "physics: ClampingScrollPhysics()"  mi consente lo scrolling su tutte le listview. Guarda questo post https://stackoverflow.com/questions/55180555/how-to-scroll-page-in-flutter-with-multiple-listviewbuilders
-            //         shrinkWrap: true,
-            //         itemCount: inventoryProvider.disposables.length,
-            //         itemBuilder: (BuildContext context, index) {
-            //           var disposable = inventoryProvider.disposables[index];
-            //           return WarehouseItemTile(
-            //             imageReference: disposable.imageReference,
-            //             title: disposable.title,
-            //             sellingPrice: disposable.sellingPrice.toString(),
-            //             actualAvailability:
-            //             disposable.actualAvailability.toString(),
-            //           );
-            //         },
-            //       ),
-            //
-            //
-            //     ],
-            //   ),
-            //
-            //
-            //
-            //
-            //   /// Lista degli INGREDIENTS
-            //   ExpansionTile(
-            //     title: Text('Ingredients'),
-            //     initiallyExpanded: true,
-            //     children: [
-            //
-            //       ListView.separated(
-            //         separatorBuilder: (BuildContext context, int index) =>
-            //             Divider(),
-            //         physics: ClampingScrollPhysics(),/// "physics: ClampingScrollPhysics()"  mi consente lo scrolling su tutte le listview. Guarda questo post https://stackoverflow.com/questions/55180555/how-to-scroll-page-in-flutter-with-multiple-listviewbuilders
-            //         shrinkWrap: true,
-            //         itemCount: inventoryProvider.ingredients.length,
-            //         itemBuilder: (BuildContext context, index) {
-            //           var ingredient = inventoryProvider.ingredients[index];
-            //           return WarehouseItemTile(
-            //             imageReference: ingredient.imageReference,
-            //             title: ingredient.title,
-            //             sellingPrice: '12',
-            //             actualAvailability:
-            //             ingredient.actualAvailability.toString(),
-            //           );
-            //         },
-            //       ),
-            //
-            //       Container(
-            //         height: 80,
-            //       )
-            //     ],
-            //   ),
-            //
-            //
-            //
-            //
-            //   /// Lista dei RESELLING PRODUCTS
-            //   ExpansionTile(
-            //     title: Text('Reselling Products'),
-            //     initiallyExpanded: true,
-            //     children: [
-            //
-            //       ListView.separated(
-            //         separatorBuilder: (BuildContext context, int index) =>
-            //             Divider(),
-            //         physics: ClampingScrollPhysics(),
-            //
-            //         /// "physics: ClampingScrollPhysics()"  mi consente lo scrolling su tutte le listview. Guarda questo post https://stackoverflow.com/questions/55180555/how-to-scroll-page-in-flutter-with-multiple-listviewbuilders
-            //         shrinkWrap: true,
-            //         itemCount: inventoryProvider.resellingProducts.length,
-            //         itemBuilder: (BuildContext context, index) {
-            //           var resellingProducts = inventoryProvider.resellingProducts[index];
-            //           return WarehouseItemTile(
-            //             imageReference: resellingProducts.imageReference,
-            //             title: resellingProducts.title,
-            //             sellingPrice: '12',
-            //             actualAvailability:
-            //             resellingProducts.actualAvailability.toString(),
-            //           );
-            //         },
-            //       ),
-            //
-            //       Container(
-            //         height: 80,
-            //       )
-            //     ],
-            //   ),
-            //
-            //
-            //
-            //   /// Lista dei WORK TOOLS
-            //   ExpansionTile(
-            //     title: Text('Work Tools'),
-            //     initiallyExpanded: true,
-            //     children: [
-            //
-            //       ListView.separated(
-            //         separatorBuilder: (BuildContext context, int index) =>
-            //             Divider(),
-            //         physics: ClampingScrollPhysics(),/// "physics: ClampingScrollPhysics()"  mi consente lo scrolling su tutte le listview. Guarda questo post https://stackoverflow.com/questions/55180555/how-to-scroll-page-in-flutter-with-multiple-listviewbuilders
-            //         shrinkWrap: true,
-            //         itemCount: inventoryProvider.workTools.length,
-            //         itemBuilder: (BuildContext context, index) {
-            //           var workTools = inventoryProvider.workTools[index];
-            //           return WarehouseItemTile(
-            //             imageReference: workTools.imageReference,
-            //             title: workTools.title,
-            //             sellingPrice: '12',
-            //             actualAvailability:
-            //             workTools.actualAvailability.toString(),
-            //           );
-            //         },
-            //       ),
-            //
-            //       Container(
-            //         height: 80,
-            //       )
-            //     ],
-            //   ),
-            //
-            //
-            //   /// Lista dei SERVICE TOOLS
-            //   ExpansionTile(
-            //     title: Text('Service Tools'),
-            //     initiallyExpanded: true,
-            //     children: [
-            //
-            //       ListView.separated(
-            //         separatorBuilder: (BuildContext context, int index) =>
-            //             Divider(),
-            //         physics: ClampingScrollPhysics(),/// "physics: ClampingScrollPhysics()"  mi consente lo scrolling su tutte le listview. Guarda questo post https://stackoverflow.com/questions/55180555/how-to-scroll-page-in-flutter-with-multiple-listviewbuilders
-            //         shrinkWrap: true,
-            //         itemCount: inventoryProvider.serviceTools.length,
-            //         itemBuilder: (BuildContext context, index) {
-            //           var serviceTools = inventoryProvider.serviceTools[index];
-            //           return WarehouseItemTile(
-            //             imageReference: serviceTools.imageReference,
-            //             title: serviceTools.title,
-            //             sellingPrice: '12',
-            //             actualAvailability:
-            //             serviceTools.actualAvailability.toString(),
-            //
-            //           );
-            //         },
-            //       ),
-            //
-            //       Container(
-            //         height: 80,
-            //       )
-            //     ],
-            //   ),
-            // ],),
+
           ],
         ),
       ),
     );
   }
+}
+
+
+void navigateToTappedItem(){
+
 }
