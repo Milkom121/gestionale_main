@@ -24,14 +24,14 @@ class _InventorySearchItemsViewState extends State<InventorySearchItemsView> {
         shrinkWrap: true,
         itemCount: inventory.foundInventoryElements.length,
         itemBuilder: (BuildContext context, index) {
-          var foundInventoryElements = inventory.foundInventoryElements[index];
+          var _foundInventoryElement = inventory.foundInventoryElements[index];
           return WarehouseItemTile(
-            disposable: foundInventoryElements,
-            imageReference: foundInventoryElements.imageReference,
-            title: foundInventoryElements.title,
+            disposable: _foundInventoryElement ,
+            imageReference: _foundInventoryElement.imageReference,
+            title: _foundInventoryElement.title,
             sellingPrice: '12',
             actualAvailability:
-            foundInventoryElements.actualAvailability.toString(),
+            _foundInventoryElement.actualAvailability.toString(),
 
           );
         },
@@ -43,8 +43,6 @@ class _InventorySearchItemsViewState extends State<InventorySearchItemsView> {
 
 
 class InventoryDefaultItemsView extends StatefulWidget {
-
-
 
   @override
   _InventoryDefaultItemsViewState createState() => _InventoryDefaultItemsViewState();

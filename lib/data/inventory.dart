@@ -10,6 +10,12 @@ import 'package:gestionale_main/models/seats/restaurant_seats.dart';
 
 /// qui definiamo l'Inventario, ovvero il file contenente tutto ciò che c'è e non c'è al Main
 class Inventory with ChangeNotifier {
+
+
+
+
+
+
   /// inventario dei prodotti usa e getta
   List<Disposable> disposables = [
     Disposable(
@@ -64,168 +70,168 @@ class Inventory with ChangeNotifier {
 
   /// inventario degli ingredienti
   List<Ingredient> ingredients = [
-    Ingredient(
-      imageReference: 'assets/images/mainsummer_logo.png',
-      measureUnit: 'kg',
-      title: 'Pesto Genovese',
-      category: 'Ristorante',
-      maxPackageSupply: 10,
-      purchasePrice: 1.0,
-      dealer: 'Metro',
-      actualAvailability: 5,
-
-      packageQuantity: 1,
-      unityWeight: 1,
-      imageUrl:
-          'wips.plug.it/cips/buonissimo.org/cms/2013/04/pesto-alla-genovese-6.jpg',
-      alcoholic: false,
-    ),
-
-
-    Ingredient(
-      imageReference: 'assets/images/mainsummer_logo.png',
-      measureUnit: 'kg',
-      title: 'Cipolla',
-      category: 'Ristorante',
-      maxPackageSupply: 10,
-      purchasePrice: 1.0,
-      dealer: 'Metro',
-      actualAvailability: 5,
-
-      packageQuantity: 1,
-      unityWeight: 1,
-      imageUrl:
-      'wips.plug.it/cips/buonissimo.org/cms/2013/04/pesto-alla-genovese-6.jpg',
-      alcoholic: false,
-    ),
-
-    Ingredient(
-      imageReference: 'assets/images/mainsummer_logo.png',
-      measureUnit: 'kg',
-      title: 'Carote',
-      category: 'Ristorante',
-      maxPackageSupply: 10,
-      purchasePrice: 1.0,
-      dealer: 'Metro',
-      actualAvailability: 5,
-
-      packageQuantity: 1,
-      unityWeight: 1,
-      imageUrl:
-      'wips.plug.it/cips/buonissimo.org/cms/2013/04/pesto-alla-genovese-6.jpg',
-      alcoholic: false,
-    ),
-
-    Ingredient(
-      imageReference: 'assets/images/mainsummer_logo.png',
-      measureUnit: 'kg',
-      title: 'Zucchine',
-      category: 'Ristorante',
-      maxPackageSupply: 10,
-      purchasePrice: 1.0,
-      dealer: 'Metro',
-      actualAvailability: 5,
-
-      packageQuantity: 1,
-      unityWeight: 1,
-      imageUrl:
-      'wips.plug.it/cips/buonissimo.org/cms/2013/04/pesto-alla-genovese-6.jpg',
-      alcoholic: false,
-    ),
+    // Ingredient(
+    //   imageReference: 'assets/images/mainsummer_logo.png',
+    //   measureUnit: 'kg',
+    //   title: 'Pesto Genovese',
+    //   category: 'Ristorante',
+    //   maxPackageSupply: 10,
+    //   purchasePrice: 1.0,
+    //   dealer: 'Metro',
+    //   actualAvailability: 5,
+    //
+    //   packageQuantity: 1,
+    //   unityWeight: 1,
+    //   imageUrl:
+    //       'wips.plug.it/cips/buonissimo.org/cms/2013/04/pesto-alla-genovese-6.jpg',
+    //   alcoholic: false,
+    // ),
+    //
+    //
+    // Ingredient(
+    //   imageReference: 'assets/images/mainsummer_logo.png',
+    //   measureUnit: 'kg',
+    //   title: 'Cipolla',
+    //   category: 'Ristorante',
+    //   maxPackageSupply: 10,
+    //   purchasePrice: 1.0,
+    //   dealer: 'Metro',
+    //   actualAvailability: 5,
+    //
+    //   packageQuantity: 1,
+    //   unityWeight: 1,
+    //   imageUrl:
+    //   'wips.plug.it/cips/buonissimo.org/cms/2013/04/pesto-alla-genovese-6.jpg',
+    //   alcoholic: false,
+    // ),
+    //
+    // Ingredient(
+    //   imageReference: 'assets/images/mainsummer_logo.png',
+    //   measureUnit: 'kg',
+    //   title: 'Carote',
+    //   category: 'Ristorante',
+    //   maxPackageSupply: 10,
+    //   purchasePrice: 1.0,
+    //   dealer: 'Metro',
+    //   actualAvailability: 5,
+    //
+    //   packageQuantity: 1,
+    //   unityWeight: 1,
+    //   imageUrl:
+    //   'wips.plug.it/cips/buonissimo.org/cms/2013/04/pesto-alla-genovese-6.jpg',
+    //   alcoholic: false,
+    // ),
+    //
+    // Ingredient(
+    //   imageReference: 'assets/images/mainsummer_logo.png',
+    //   measureUnit: 'kg',
+    //   title: 'Zucchine',
+    //   category: 'Ristorante',
+    //   maxPackageSupply: 10,
+    //   purchasePrice: 1.0,
+    //   dealer: 'Metro',
+    //   actualAvailability: 5,
+    //
+    //   packageQuantity: 1,
+    //   unityWeight: 1,
+    //   imageUrl:
+    //   'wips.plug.it/cips/buonissimo.org/cms/2013/04/pesto-alla-genovese-6.jpg',
+    //   alcoholic: false,
+    // ),
 
   ];
 
   /// inventario dei prodotti da rivendita
   List<ResellingProduct> resellingProducts = [
-    ResellingProduct(
-      title: 'Coca Cola Lattina',
-      commonName: 'Coca',
-      description: 'Una lattina rossa contenente CocaCola',
-      variety: '33 cl',
-      dealer: 'UICO',
-      purchasePrice: 0.50,
-      sellingPrice: 2.50,
-      iva: 22,
-      imageReference:
-          'www.topbevande.it/images/thumbs/0085545_coca-cola-original-33cl-confezione-da-24-barattoli-lattina_780.jpeg',
-      actualAvailability: 30,
-    ),
-
-    ResellingProduct(
-      title: 'Fanta',
-      commonName: 'Coca',
-      description: 'Una lattina rossa contenente CocaCola',
-      variety: '33 cl',
-      dealer: 'UICO',
-      purchasePrice: 0.50,
-      sellingPrice: 2.50,
-      iva: 22,
-      imageReference:
-      'www.topbevande.it/images/thumbs/0085545_coca-cola-original-33cl-confezione-da-24-barattoli-lattina_780.jpeg',
-      actualAvailability: 30,
-    ),
-
-    ResellingProduct(
-      title: 'Sprite',
-      commonName: 'Coca',
-      description: 'Una lattina rossa contenente CocaCola',
-      variety: '33 cl',
-      dealer: 'UICO',
-      purchasePrice: 0.50,
-      sellingPrice: 2.50,
-      iva: 22,
-      imageReference:
-      'www.topbevande.it/images/thumbs/0085545_coca-cola-original-33cl-confezione-da-24-barattoli-lattina_780.jpeg',
-      actualAvailability: 30,
-    ),
+    // ResellingProduct(
+    //   title: 'Coca Cola Lattina',
+    //   commonName: 'Coca',
+    //   description: 'Una lattina rossa contenente CocaCola',
+    //   variety: '33 cl',
+    //   dealer: 'UICO',
+    //   purchasePrice: 0.50,
+    //   sellingPrice: 2.50,
+    //   iva: 22,
+    //   imageReference:
+    //       'www.topbevande.it/images/thumbs/0085545_coca-cola-original-33cl-confezione-da-24-barattoli-lattina_780.jpeg',
+    //   actualAvailability: 30,
+    // ),
+    //
+    // ResellingProduct(
+    //   title: 'Fanta',
+    //   commonName: 'Coca',
+    //   description: 'Una lattina rossa contenente CocaCola',
+    //   variety: '33 cl',
+    //   dealer: 'UICO',
+    //   purchasePrice: 0.50,
+    //   sellingPrice: 2.50,
+    //   iva: 22,
+    //   imageReference:
+    //   'www.topbevande.it/images/thumbs/0085545_coca-cola-original-33cl-confezione-da-24-barattoli-lattina_780.jpeg',
+    //   actualAvailability: 30,
+    // ),
+    //
+    // ResellingProduct(
+    //   title: 'Sprite',
+    //   commonName: 'Coca',
+    //   description: 'Una lattina rossa contenente CocaCola',
+    //   variety: '33 cl',
+    //   dealer: 'UICO',
+    //   purchasePrice: 0.50,
+    //   sellingPrice: 2.50,
+    //   iva: 22,
+    //   imageReference:
+    //   'www.topbevande.it/images/thumbs/0085545_coca-cola-original-33cl-confezione-da-24-barattoli-lattina_780.jpeg',
+    //   actualAvailability: 30,
+    // ),
 
   ];
 
   /// inventario degli strumenti di servizio
   List<ServiceTool> serviceTools = [
-    ServiceTool(
-        title: 'Martello',
-        variety: 'Normale',
-        actualAvailability: 1,
-        imageReference:
-            'https://images-na.ssl-images-amazon.com/images/I/61QanwisKgL._AC_SX425_.jpg',
-    ),
-
-    ServiceTool(
-      title: 'Cacciavite',
-      variety: 'Normale',
-      actualAvailability: 1,
-      imageReference:
-      'https://images-na.ssl-images-amazon.com/images/I/61QanwisKgL._AC_SX425_.jpg',
-    ),
-
+  //   ServiceTool(
+  //       title: 'Martello',
+  //       variety: 'Normale',
+  //       actualAvailability: 1,
+  //       imageReference:
+  //           'https://images-na.ssl-images-amazon.com/images/I/61QanwisKgL._AC_SX425_.jpg',
+  //   ),
+  //
+  //   ServiceTool(
+  //     title: 'Cacciavite',
+  //     variety: 'Normale',
+  //     actualAvailability: 1,
+  //     imageReference:
+  //     'https://images-na.ssl-images-amazon.com/images/I/61QanwisKgL._AC_SX425_.jpg',
+  //   ),
+  //
   ];
 
   /// inventario degli strumenti di lavoro
   List<WorkTool> workTools = [
-    WorkTool(
-      imageReference:
-          'images.eprice.it/nobrand/0/Lightbox/492/207547492/classic.jpg',
-      title: 'Padella',
-      category: 'Cucina',
-      actualAvailability: 1,
-    ),
-
-    WorkTool(
-      imageReference:
-      'images.eprice.it/nobrand/0/Lightbox/492/207547492/classic.jpg',
-      title: 'Coltello',
-      category: 'Cucina',
-      actualAvailability: 1,
-    ),
-
-    WorkTool(
-      imageReference:
-      'images.eprice.it/nobrand/0/Lightbox/492/207547492/classic.jpg',
-      title: 'Coltello',
-      category: 'Cucina',
-      actualAvailability: 1,
-    ),
+  //   WorkTool(
+  //     imageReference:
+  //         'images.eprice.it/nobrand/0/Lightbox/492/207547492/classic.jpg',
+  //     title: 'Padella',
+  //     category: 'Cucina',
+  //     actualAvailability: 1,
+  //   ),
+  //
+  //   WorkTool(
+  //     imageReference:
+  //     'images.eprice.it/nobrand/0/Lightbox/492/207547492/classic.jpg',
+  //     title: 'Coltello',
+  //     category: 'Cucina',
+  //     actualAvailability: 1,
+  //   ),
+  //
+  //   WorkTool(
+  //     imageReference:
+  //     'images.eprice.it/nobrand/0/Lightbox/492/207547492/classic.jpg',
+  //     title: 'Coltello',
+  //     category: 'Cucina',
+  //     actualAvailability: 1,
+  //   ),
 
   ];
 
@@ -237,14 +243,29 @@ class Inventory with ChangeNotifier {
 
   /// getter che restituisce una lista di tutti gli elementi contenuti in tutte le liste
   List get allItemsInInventory {
-    List allItemsList = [
+    List _allItemsList = [
       ...disposables,
       ...ingredients,
       ...resellingProducts,
       ...serviceTools,
       ...workTools
     ];
-    return allItemsList;
+    return _allItemsList;
+  }
+
+
+  /// getter che restituisce una lista conteneti le liste dei diversi items come disposables, ingredients, etc
+  List get allListsOfInventoryItems{
+
+    List<List> _allItemsList = [
+      disposables,
+      ingredients,
+      resellingProducts,
+      serviceTools,
+      workTools
+    ];
+    return _allItemsList;
+
   }
 
   /// metodo per aggiungere nuovi elementi nelle liste corrette

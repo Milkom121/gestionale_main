@@ -66,7 +66,7 @@ bool isSearching = false;
                         onChanged: (searchingText) {
                           setState(() {
                             inventoryProvider.findElemetsByName(searchingText);
-
+                              /// se la barra di ricerca è vuota vuol dire che non sto cercando e quindi isSearching = false (e quindi viene mostrato lo schermo corretto)
                               searchingText.isEmpty ? isSearching  = false : isSearching = true;
 
                             // setState(() {
@@ -97,6 +97,3 @@ bool isSearching = false;
 }
 
 
-void navigateToTappedItem(){
-
-}
