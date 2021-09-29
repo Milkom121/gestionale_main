@@ -99,8 +99,8 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
           label: 'Inventory'
         ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.inventory),
-            label: 'Inventory'
+            icon: Icon(Icons.stacked_bar_chart),
+            label: 'Analytics'
         )
       ],
       currentIndex: widget.actualIndex,

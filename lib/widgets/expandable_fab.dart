@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 
 @immutable
 class ExpandableFab extends StatefulWidget {
-
   const ExpandableFab({
     Key? key,
-    this.initialOpen, /// imposta true se vuoi che il pulsante sia già espanso all'inizio
-    required this.distance, /// un booleano per impostare la distanza dei pulsanti espansi
-    required this.children, /// fornisce elementi ActionBUtton come figli del fab una volta espanso
+    this.initialOpen,
+
+    /// imposta true se vuoi che il pulsante sia già espanso all'inizio
+    required this.distance,
+
+    /// un booleano per impostare la distanza dei pulsanti espansi
+    required this.children,
+
+    /// fornisce elementi ActionBUtton come figli del fab una volta espanso
   }) : super(key: key);
 
   final bool? initialOpen;
@@ -102,8 +107,8 @@ class _ExpandableFabState extends State<ExpandableFab>
     final count = widget.children.length;
     final step = 90.0 / (count - 1);
     for (var i = 0, angleInDegrees = 0.0;
-    i < count;
-    i++, angleInDegrees += step) {
+        i < count;
+        i++, angleInDegrees += step) {
       children.add(
         _ExpandingActionButton(
           directionInDegrees: angleInDegrees,
@@ -183,6 +188,7 @@ class _ExpandingActionButton extends StatelessWidget {
   }
 }
 
+///il pulsante che viene mostrato dopo l'espansione
 @immutable
 class ActionButton extends StatelessWidget {
   const ActionButton({
@@ -200,7 +206,7 @@ class ActionButton extends StatelessWidget {
     return Material(
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
-      color: theme.accentColor,
+      color: theme.colorScheme.secondary,
       elevation: 4.0,
       child: IconTheme.merge(
         data: theme.accentIconTheme,

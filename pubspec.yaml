@@ -32,6 +32,7 @@ dependencies:
   table_calendar: ^3.0.2
   image_picker: ^0.8.4
   floating_action_bubble: 1.0.9
+  flutter_calendar_carousel: ^2.0.3
 
 
 

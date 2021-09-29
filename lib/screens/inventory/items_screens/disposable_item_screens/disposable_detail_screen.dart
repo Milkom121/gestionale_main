@@ -4,15 +4,19 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
-import 'package:gestionale_main/widgets/app_navigation_bar.dart';
+import 'package:gestionale_main/screens/inventory/items_screens/disposable_item_screens/disposable_edit_screen.dart';
 import 'package:gestionale_main/widgets/circle_avatar_image_picker.dart';
+import 'package:provider/provider.dart';
 
 class DisposableDetailScreen extends StatefulWidget {
 
   DisposableDetailScreen(this.disposableObject);
 
   final Disposable disposableObject;
+
+
 
 
 
@@ -23,19 +27,47 @@ class DisposableDetailScreen extends StatefulWidget {
 class _DisposableDetailScreenState extends State<DisposableDetailScreen> {
   @override
   Widget build(BuildContext context) {
+
+
+
+    // Disposable disposableObjectInInventory = widget.disposableObject[[disposables.indexWhere(
+    //         (element) => element.id == modifiedElement.id)]]
+
     return Scaffold(
-      body: Container(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.edit),
+            color: Colors.black,
+            onPressed: (){
+              ///navigo verso la pagina di modifica dell'oggetto
+             Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => DisposableEditScreen(widget.disposableObject)));
+            }
+            ,
+          ),
+        ],
+      ),
+      body: Consumer<Inventory>(builder: (context, inventory, child) {
+
+        /// creo un riferimento all'oggetto presente effettivamente nel database, che è una entità diversa rispetto al Disposable che viene passato col costruttore, così da mostrare le modifiche in diretta in questo schermo
+        Disposable disposableObjectInInventory = inventory.disposables[inventory.disposables.indexWhere(
+             (element) => element.id == widget.disposableObject.id)];
+
+        return Container(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              SizedBox(height: 30,),
+
 
               Center(
                 child: Column(
                   children: [
                     CircleAvatarImagePicker(null),
-                    Text(widget.disposableObject.title, style: TextStyle(
+                    Text(disposableObjectInInventory.title, style: TextStyle(
                       fontSize: 23,
                       fontWeight: FontWeight.bold,
                     ),)
@@ -59,7 +91,7 @@ class _DisposableDetailScreenState extends State<DisposableDetailScreen> {
                               fontWeight: FontWeight.bold
                           ),),
                         SizedBox(height: 10,),
-                        Text(widget.disposableObject.dealer)
+                        Text(disposableObjectInInventory.dealer)
                       ],
                     ),
 
@@ -71,7 +103,7 @@ class _DisposableDetailScreenState extends State<DisposableDetailScreen> {
                               fontWeight: FontWeight.bold
                           ),),
                         SizedBox(height: 10,),
-                        Text(widget.disposableObject.maxSupply.toString()),
+                        Text(disposableObjectInInventory.maxSupply.toString()),
                       ],
                     )
                   ],
@@ -92,7 +124,7 @@ class _DisposableDetailScreenState extends State<DisposableDetailScreen> {
                               fontWeight: FontWeight.bold
                           ),),
                         SizedBox(height: 10,),
-                        Text(widget.disposableObject.purchasePrice.toString())
+                        Text(disposableObjectInInventory.purchasePrice.toString())
                       ],
                     ),
 
@@ -104,7 +136,7 @@ class _DisposableDetailScreenState extends State<DisposableDetailScreen> {
                               fontWeight: FontWeight.bold
                           ),),
                         SizedBox(height: 10,),
-                        Text(widget.disposableObject.sellingPrice.toString()),
+                        Text(disposableObjectInInventory.sellingPrice.toString()),
                       ],
                     )
                   ],
@@ -115,10 +147,13 @@ class _DisposableDetailScreenState extends State<DisposableDetailScreen> {
             ],
           ),
         ),
-      ),
-    );
+      );}
+    ),);
   }
 }
+
+
+
 
 
 // Disposable(

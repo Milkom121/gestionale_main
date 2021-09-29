@@ -1,10 +1,11 @@
 //TODO 2: vado a creare il modello di un prodotto pronto alla vendita, come può essere una bottiglia d'acqua o una lattina di cola
 
 class ResellingProduct {
+   String id;
   final String title;
   final String commonName;
   final String description;
-
+  final int maxSupply;
   final String variety;
   final String dealer; //fornitore
   final double purchasePrice;
@@ -14,7 +15,10 @@ class ResellingProduct {
   int actualAvailability;
 
   ResellingProduct(
-      {required this.imageReference,
+      {
+        required this.id,
+        required this.maxSupply,
+      required this.imageReference,
       required this.actualAvailability,
       required this.title,
       required this.commonName,

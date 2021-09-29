@@ -2,13 +2,13 @@
 
 
 class WorkTool{
-
+   String id;
   final String title;
   final String category;
   final String imageReference;
            int actualAvailability;
 
-  WorkTool({required this.imageReference, required this.title, required this.category , required this.actualAvailability});
+  WorkTool({required this.id,required this.imageReference, required this.title, required this.category , required this.actualAvailability});
 
 
 }

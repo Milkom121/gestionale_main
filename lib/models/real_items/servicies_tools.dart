@@ -3,13 +3,13 @@
 
 
 class ServiceTool{
-
+   String id;
   final String title;
   final String variety;
         int  actualAvailability;
   final String imageReference;
 
-  ServiceTool( {required this.imageReference, required this.title, required this.variety, required this.actualAvailability, });
+  ServiceTool( {required this.id, required this.imageReference, required this.title, required this.variety, required this.actualAvailability, });
 
 
 

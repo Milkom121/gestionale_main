@@ -1,12 +1,11 @@
 
-import 'package:gestionale_main/models/servicies_items/dish.dart';
-
 /// qui andiamo a definire un iongredient, ovvero un prodotto finalizzato alla lavorazione, che non viene venduto singolarmente
 
 
 
 
 class Ingredient {
+   String id;
   final String imageReference;
   final String title; //nome del prodotto es: cipolle caramellate
   final String category; // se appartiene al bar, ristorante o caffetteria
@@ -16,14 +15,16 @@ class Ingredient {
         double purchasePrice; // prezzo di acuqisto
         String dealer; // il nome del fornitore
         int packageQuantity; // dimensione del collo es: cartone da sei latte di cipolle
-        double unityWeight; // peso dell'unità es: una latta pesa mezzo chilo
+        double singlePackWeight; // peso dell'unità es: una latta pesa mezzo chilo
         int actualAvailability; // quantità attualmente disponibile
   final int maxPackageSupply;// quantità massima immagazzinabile
   final String imageUrl;
 
   Ingredient(
 
-      { required this.imageReference,
+      {
+        required this.id,
+        required this.imageReference,
         required this.alcoholic,
         required this.imageUrl,
         required this.measureUnit,
@@ -35,7 +36,7 @@ class Ingredient {
         required this.actualAvailability,
 
         required this.packageQuantity,
-        required this.unityWeight});
+        required this.singlePackWeight});
 
 
 }

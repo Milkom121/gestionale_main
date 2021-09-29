@@ -21,8 +21,8 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
   // String _email = 'a';
   // String _location = 'a';
 
-  Customer _newCustomer =
-  Customer(title: 'nameeeee',
+  Customer _newCustomer = Customer(
+      title: 'nameeeee',
       surname: 'surname',
       telephoneNumber: 'telephoneNumber',
       email: 'email',
@@ -65,7 +65,6 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-
                     ///FORM PER IL NOME
                     Padding(
                       padding: const EdgeInsets.only(left: 25, right: 35),
@@ -215,12 +214,12 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                               content: Text('Processing Data'),
                             ));
                             print('2');
-                            _formKey.currentState!.save(); ///con questo metodo attivo i metodi onSaved dei vari form e salvano i dati in _newCustomer
+                            _formKey.currentState!.save();
+
+                            ///con questo metodo attivo i metodi onSaved dei vari form e salvano i dati in _newCustomer
                             print('3');
 
-
                             customersProvider.addNewCustomer(_newCustomer);
-
 
                             print('4');
                             Navigator.pushNamed(
@@ -244,5 +243,3 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
     );
   }
 }
-
-
