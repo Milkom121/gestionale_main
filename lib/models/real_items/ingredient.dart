@@ -14,10 +14,10 @@ class Ingredient {
 
         double purchasePrice; // prezzo di acuqisto
         String dealer; // il nome del fornitore
-        int packageQuantity; // dimensione del collo es: cartone da sei latte di cipolle
-        double singlePackWeight; // peso dell'unità es: una latta pesa mezzo chilo
+        int packagesUnitsQuantity; // dimensione del collo es: cartone da sei latte di cipolle
+        double singlePackMeasure; // peso dell'unità es: una latta pesa mezzo chilo
         int actualAvailability; // quantità attualmente disponibile
-  final int maxPackageSupply;// quantità massima immagazzinabile
+  final int maxPackagesSupply;// quantità massima immagazzinabile
   final String imageUrl;
 
   Ingredient(
@@ -30,13 +30,37 @@ class Ingredient {
         required this.measureUnit,
         required this.title,
         required this.category,
-        required this.maxPackageSupply,
+        required this.maxPackagesSupply,
         required this.purchasePrice,
         required this.dealer,
         required this.actualAvailability,
 
-        required this.packageQuantity,
-        required this.singlePackWeight});
+        required this.packagesUnitsQuantity,
+        required this.singlePackMeasure,});
+
+
+
+
+
+   static Map<String, String> returnAnIngredientAsMap(Ingredient ingredient) {
+     return {
+       'id': ingredient.id,
+       'title': ingredient.title,
+       'category': ingredient.category,
+       'dealer': ingredient.dealer,
+       'purchasePrice': ingredient.purchasePrice.toString(),
+       'actualAvailability': ingredient.actualAvailability.toString(),
+       'maxPackagesSupply': ingredient.maxPackagesSupply.toString(),
+       'packagesUnitsQuantity' : ingredient.packagesUnitsQuantity.toString(),
+       'singlePackMeasure' :ingredient.singlePackMeasure.toString(),
+       'measureUnit' : ingredient.measureUnit,
+       'alcoholic' : ingredient.alcoholic.toString(),
+       'imageReference': ingredient.imageReference,
+     };
+   }
+
+
+
 
 
 }

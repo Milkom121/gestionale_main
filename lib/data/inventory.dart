@@ -63,19 +63,18 @@ class Inventory with ChangeNotifier {
 
   /// inventario degli ingredienti
   List<Ingredient> ingredients = [
-
     Ingredient(
       id: '',
       imageReference: 'assets/images/mainsummer_logo.png',
       measureUnit: 'kg',
       title: 'Pesto Genovese',
       category: 'Ristorante',
-      maxPackageSupply: 10,
+      maxPackagesSupply: 10,
       purchasePrice: 1.0,
       dealer: 'Metro',
       actualAvailability: 5,
-      packageQuantity: 1,
-      singlePackWeight: 1,
+      packagesUnitsQuantity: 1,
+      singlePackMeasure: 1,
       imageUrl:
           'https://wips.plug.it/cips/buonissimo.org/cms/2013/04/pesto-alla-genovese-6.jpg',
       alcoholic: false,
@@ -86,12 +85,12 @@ class Inventory with ChangeNotifier {
       measureUnit: 'kg',
       title: 'Cipolla',
       category: 'Ristorante',
-      maxPackageSupply: 10,
+      maxPackagesSupply: 10,
       purchasePrice: 1.0,
       dealer: 'Metro',
       actualAvailability: 5,
-      packageQuantity: 1,
-      singlePackWeight: 1,
+      packagesUnitsQuantity: 1,
+      singlePackMeasure: 1,
       imageUrl:
           'https://wips.plug.it/cips/buonissimo.org/cms/2013/04/pesto-alla-genovese-6.jpg',
       alcoholic: false,
@@ -102,12 +101,12 @@ class Inventory with ChangeNotifier {
       measureUnit: 'kg',
       title: 'Carote',
       category: 'Ristorante',
-      maxPackageSupply: 10,
+      maxPackagesSupply: 10,
       purchasePrice: 1.0,
       dealer: 'Metro',
       actualAvailability: 5,
-      packageQuantity: 1,
-      singlePackWeight: 1,
+      packagesUnitsQuantity: 1,
+      singlePackMeasure: 1,
       imageUrl:
           'https://wips.plug.it/cips/buonissimo.org/cms/2013/04/pesto-alla-genovese-6.jpg',
       alcoholic: false,
@@ -118,12 +117,12 @@ class Inventory with ChangeNotifier {
       measureUnit: 'kg',
       title: 'Zucchine',
       category: 'Ristorante',
-      maxPackageSupply: 10,
+      maxPackagesSupply: 10,
       purchasePrice: 1.0,
       dealer: 'Metro',
       actualAvailability: 5,
-      packageQuantity: 1,
-      singlePackWeight: 1,
+      packagesUnitsQuantity: 1,
+      singlePackMeasure: 1,
       imageUrl:
           'https://wips.plug.it/cips/buonissimo.org/cms/2013/04/pesto-alla-genovese-6.jpg',
       alcoholic: false,
@@ -219,6 +218,13 @@ class Inventory with ChangeNotifier {
     ),
   ];
 
+  /// questa mappa contiene una copia dell'inventario completamente convertita in string, successivamente la convertirò in Json per il salvataggio su firebase
+  Map<String, Map<String, String>> _inventoryAsMap = {};
+
+  Map<String, Map<String, String>> get inventoryAsMap {
+    return {..._inventoryAsMap};
+  }
+
   List<dynamic> _foundInventoryElements = [];
 
   List get foundInventoryElements {
@@ -272,6 +278,7 @@ class Inventory with ChangeNotifier {
       workTools[workTools.indexWhere(
           (element) => element.id == modifiedElement.id)] = modifiedElement;
     }
+    inventoryToMap();
     notifyListeners();
   }
 
@@ -308,6 +315,7 @@ class Inventory with ChangeNotifier {
       print(newElement.id);
     }
 
+    inventoryToMap();
     notifyListeners();
   }
 
@@ -333,25 +341,45 @@ class Inventory with ChangeNotifier {
 
   /// metodo per rimuovere un elemento dall'inventario
   removeElementById(elementForDeleting) {
-
     if (elementForDeleting is Disposable) {
       disposables.removeWhere((element) => element.id == elementForDeleting.id);
-    } else
-    if (elementForDeleting is Ingredient) {
+    } else if (elementForDeleting is Ingredient) {
       ingredients.removeWhere((element) => element.id == elementForDeleting.id);
-    }else
-    if (elementForDeleting is ResellingProduct) {
+    } else if (elementForDeleting is ResellingProduct) {
       resellingProducts
           .removeWhere((element) => element.id == elementForDeleting.id);
-    }else
-    if (elementForDeleting is ServiceTool) {
+    } else if (elementForDeleting is ServiceTool) {
       serviceTools
           .removeWhere((element) => element.id == elementForDeleting.id);
-    }else
-    if (elementForDeleting is WorkTool) {
+    } else if (elementForDeleting is WorkTool) {
       workTools.removeWhere((element) => element.id == elementForDeleting.id);
     }
 
+    inventoryToMap();
     notifyListeners();
+  }
+
+  void inventoryToMap() {
+    Map<String, Map<String, String>> map = {};
+
+    allItemsInInventory.forEach((element) {
+      if (element is Disposable) {
+        map.putIfAbsent(
+            element.id, () => Disposable.returnADisposableAsMap(element));
+      } else if (element is Ingredient) {
+        map.putIfAbsent(
+            element.id, () => Ingredient.returnAnIngredientAsMap(element));
+      } else if (element is ResellingProduct) {
+        map.putIfAbsent(element.id,
+            () => ResellingProduct.returnAResellingProductAsMap(element));
+      } else if (element is ServiceTool) {
+        map.putIfAbsent(
+            element.id, () => ServiceTool.returnAServiceToolAsMap(element));
+      } else if (element is WorkTool) {
+        map.putIfAbsent(
+            element.id, () => WorkTool.returnAWorkToolAsMap(element));
+      }
+    });
+    _inventoryAsMap = map;
   }
 }

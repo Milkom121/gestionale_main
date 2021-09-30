@@ -34,6 +34,8 @@ dependencies:
   floating_action_bubble: 1.0.9
   flutter_calendar_carousel: ^2.0.3
 
+  http: ^0.13.3
+
 
 
 

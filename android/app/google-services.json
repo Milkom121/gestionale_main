@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "461403202833",
+    "firebase_url": "https://gestionale-main-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "gestionale-main",
+    "storage_bucket": "gestionale-main.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461403202833:android:e0a324237e763f485358b0",
+        "android_client_info": {
+          "package_name": "com.example.gestionale_main"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461403202833-uc6h5pgq27ehaavjk6f4bvcss3f4makd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYl1esjqySocCm8I3jGcCQGHGZhJD5Z1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461403202833-uc6h5pgq27ehaavjk6f4bvcss3f4makd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

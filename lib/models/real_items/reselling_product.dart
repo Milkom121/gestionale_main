@@ -3,8 +3,8 @@
 class ResellingProduct {
    String id;
   final String title;
-  final String commonName;
-  final String description;
+  final String commonName;//TODO da eliminare
+  final String description;//TODO da eliminare
   final int maxSupply;
   final String variety;
   final String dealer; //fornitore
@@ -28,4 +28,21 @@ class ResellingProduct {
       required this.purchasePrice,
       required this.sellingPrice,
       required this.iva});
+
+
+   static Map<String, String> returnAResellingProductAsMap(ResellingProduct resellingProduct) {
+     return {
+       'id': resellingProduct.id,
+       'title': resellingProduct.title,
+       'dealer': resellingProduct.dealer,
+       'purchasePrice': resellingProduct.purchasePrice.toString(),
+       'actualAvailability': resellingProduct.actualAvailability.toString(),
+       'maxSupply': resellingProduct.maxSupply.toString(),
+       'imageReference': resellingProduct.imageReference,
+       'variety' :  resellingProduct.variety,
+       'iva' : resellingProduct.iva.toString(),
+
+     };
+   }
+
 }

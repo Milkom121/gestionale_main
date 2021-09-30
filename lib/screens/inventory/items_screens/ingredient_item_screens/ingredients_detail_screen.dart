@@ -124,7 +124,7 @@ class _IngredientDetailScreenState extends State<IngredientDetailScreen> {
                               SizedBox(
                                 height: 10,
                               ),
-                              Text(ingredientObjectInInventory.maxPackageSupply
+                              Text(ingredientObjectInInventory.maxPackagesSupply
                                   .toString()),
                             ],
                           ),
