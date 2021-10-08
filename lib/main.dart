@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gestionale_main/data/customers.dart';
 import 'package:gestionale_main/data/inventory.dart';
@@ -12,9 +13,19 @@ import 'screens/customers/new_customer_screen.dart';
 
 import 'screens/home_page.dart';
 
-void main() {
+///APPLICAZIONE ORIGINALE
+
+// void main() {
+//   runApp(MyApp());
+// }
+
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

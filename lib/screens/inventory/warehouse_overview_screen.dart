@@ -22,7 +22,12 @@ class _WarehouseOverviewScreenState extends State<WarehouseOverviewScreen> {
 
 bool isSearching = false;
 
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Inventory().fetchDataFromFirebase('Disposable', Inventory().disposables);
+  }
 
   @override
   Widget build(BuildContext context) {

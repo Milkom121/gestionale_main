@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "461403202833",
-    "firebase_url": "https://gestionale-main-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "gestionale-main",
-    "storage_bucket": "gestionale-main.appspot.com"
+    "project_number": "906164696893",
+    "project_id": "gestionalemain-391c0",
+    "storage_bucket": "gestionalemain-391c0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:461403202833:android:e0a324237e763f485358b0",
+        "mobilesdk_app_id": "1:906164696893:android:fa318b9d3fd22d5f373754",
         "android_client_info": {
-          "package_name": "com.example.gestionale_main"
+          "package_name": "com.neuron.gestionale_main"
         }
       },
       "oauth_client": [
         {
-          "client_id": "461403202833-uc6h5pgq27ehaavjk6f4bvcss3f4makd.apps.googleusercontent.com",
+          "client_id": "906164696893-e0tjl0scg9hr77337uegocnt9hrpshuf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDYl1esjqySocCm8I3jGcCQGHGZhJD5Z1U"
+          "current_key": "AIzaSyCZBM0X-Pr6EQ_OQvTegRo0sf0bdRcpfsM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "461403202833-uc6h5pgq27ehaavjk6f4bvcss3f4makd.apps.googleusercontent.com",
+              "client_id": "906164696893-e0tjl0scg9hr77337uegocnt9hrpshuf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

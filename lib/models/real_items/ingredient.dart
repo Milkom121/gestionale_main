@@ -11,7 +11,6 @@ class Ingredient {
   final String category; // se appartiene al bar, ristorante o caffetteria
   final bool alcoholic;
   final String measureUnit;// unità di misura utlizzata per il tipo di ingrediente
-
         double purchasePrice; // prezzo di acuqisto
         String dealer; // il nome del fornitore
         int packagesUnitsQuantity; // dimensione del collo es: cartone da sei latte di cipolle
