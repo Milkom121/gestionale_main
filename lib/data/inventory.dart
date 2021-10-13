@@ -7,6 +7,7 @@ import 'package:gestionale_main/models/real_items/ingredient.dart';
 import 'package:gestionale_main/models/real_items/reselling_product.dart';
 import 'package:gestionale_main/models/real_items/servicies_tools.dart';
 import 'package:gestionale_main/models/real_items/work_tools.dart';
+import 'package:uuid/uuid.dart';
 
 
 /// qui definiamo l'Inventario, ovvero il file contenente tutto ciò che c'è e non c'è al Main
@@ -125,7 +126,8 @@ class Inventory with ChangeNotifier {
   /// metodo per aggiungere nuovi elementi nelle liste corrette
   void addNewElementToCorrectInventoryAndID(newElement) {
     if (newElement is Disposable) {
-      newElement.id = 'D_${newElement.title}';
+      var uuid = Uuid();
+      newElement.id = uuid.v1();
       disposables.add(newElement);
 
 
@@ -136,7 +138,9 @@ class Inventory with ChangeNotifier {
       print(newElement.id);
     }
     if (newElement is Ingredient) {
-      newElement.id = 'I_${newElement.title}';
+
+      var uuid = Uuid();
+      newElement.id = uuid.v1();
       ingredients.add(newElement);
 
 
@@ -144,7 +148,8 @@ class Inventory with ChangeNotifier {
       print(newElement.id);
     }
     if (newElement is ResellingProduct) {
-      newElement.id = 'R_${newElement.title}';
+      var uuid = Uuid();
+      newElement.id = uuid.v1();
       resellingProducts.add(newElement);
 
 
@@ -152,7 +157,8 @@ class Inventory with ChangeNotifier {
       print(newElement.id);
     }
     if (newElement is ServiceTool) {
-      newElement.id = 'S_${newElement.title}';
+      var uuid = Uuid();
+      newElement.id = uuid.v1();
       serviceTools.add(newElement);
 
 
@@ -160,7 +166,8 @@ class Inventory with ChangeNotifier {
       print(newElement.id);
     }
     if (newElement is WorkTool) {
-      newElement.id = 'W_${newElement.title}';
+      var uuid = Uuid();
+      newElement.id = uuid.v1();
       workTools.add(newElement);
 
 

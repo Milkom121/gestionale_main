@@ -29,6 +29,7 @@ bool isSearching = false;
     InventoryJson().fetchDataFromFirebase();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final inventoryProvider = Provider.of<Inventory>(context);
@@ -37,6 +38,8 @@ bool isSearching = false;
           child: Icon(Icons.add),
           onPressed: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => NewItemTabBAr()));
+        //TODO quella di seguito è una prova da eliminare
+           print(Inventory().disposables.length) ;
       }),
       
       bottomNavigationBar: AppNavigationBar(widget.screenIndex),

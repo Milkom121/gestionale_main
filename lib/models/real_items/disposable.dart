@@ -12,17 +12,16 @@ class Disposable {
   int actualAvailability; // disponibilità attuale
   final String imageReference;
 
-  Disposable(
-      {required this.id,
-      required this.imageReference,
-      required this.title,
-      required this.category,
-      required this.trashCan,
-      required this.actualAvailability,
-      required this.dealer,
-      required this.maxSupply,
-      required this.purchasePrice,
-      required this.sellingPrice,}); //
+  Disposable({required this.id,
+    required this.imageReference,
+    required this.title,
+    required this.category,
+    required this.trashCan,
+    required this.actualAvailability,
+    required this.dealer,
+    required this.maxSupply,
+    required this.purchasePrice,
+    required this.sellingPrice,}); //
 
   static Map<String, String> returnADisposableAsMap(Disposable disposable) {
     return {
@@ -37,5 +36,20 @@ class Disposable {
       'actualAvailability': disposable.actualAvailability.toString(),
       'imageReference': disposable.imageReference
     };
+  }
+
+  static Disposable returnADisposableFromMap(disposableMap) {
+    return Disposable(id: disposableMap['id'],
+        imageReference: disposableMap['imageReference'],
+        title: disposableMap['title'],
+        category: disposableMap['category'],
+        trashCan: disposableMap['trashCan'],
+        actualAvailability: int.parse(disposableMap['actualAvailability']),
+        dealer: disposableMap['dealer'],
+        maxSupply: int.parse(disposableMap['maxSupply']),
+        purchasePrice: double.parse(disposableMap['purchasePrice']),
+        sellingPrice: double.parse(disposableMap['sellingPrice']),
+
+    );
   }
 }

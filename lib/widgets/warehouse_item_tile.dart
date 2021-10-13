@@ -79,7 +79,8 @@ class WarehouseItemTile extends StatelessWidget {
           ),
           leading: CircleAvatar(
             radius: 30,
-            child: Image.asset(imageReference),
+            //TODO: riattivare la riga seguente quando avrò impostato tutto il discorso delle immagini
+            //child: Image.asset(imageReference),
           ),
           title: Text(
             title,

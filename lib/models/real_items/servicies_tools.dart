@@ -13,12 +13,12 @@ class ServiceTool{
 
 
 
-   static Map<String, String> returnAServiceToolAsMap(ServiceTool resellingProduct) {
+   static Map<String, String> returnAServiceToolAsMap(ServiceTool serviceTool) {
      return {
-       'id': resellingProduct.id,
-       'title': resellingProduct.title,
-       'actualAvailability': resellingProduct.actualAvailability.toString(),
-       'imageReference': resellingProduct.imageReference,
+       'id': serviceTool.id,
+       'title': serviceTool.title,
+       'actualAvailability': serviceTool.actualAvailability.toString(),
+       'imageReference': serviceTool.imageReference,
 
      };
    }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:gestionale_main/models/real_items/ingredient.dart';
@@ -14,24 +15,32 @@ class InventoryJson {
 
   ///questa variabile è un riferimento alla collection 'inventory' in firebase
   CollectionReference inventoryFirebaseCollection =
-      FirebaseFirestore.instance.collection('Inventory');
+  FirebaseFirestore.instance.collection('Inventory');
 
   ///queste variabili invece si riferiscono ad un documento ('disposables' ,'ingredients'...) dentro la collection inventory
-  DocumentReference disposablesDocument =
-      FirebaseFirestore.instance.collection('Inventory').doc('Disposables');
+  CollectionReference _disposablesCollection =
+  FirebaseFirestore.instance.collection('Inventory')
+      .doc('Disposables')
+      .collection('DisposablesCollection');
 
-  DocumentReference ingredientsDocument =
-      FirebaseFirestore.instance.collection('Inventory').doc('Ingredients');
+  CollectionReference ingredientsCollection =
+  FirebaseFirestore.instance.collection('Inventory')
+      .doc('Ingredients')
+      .collection('IngredientsCollection');
 
-  DocumentReference resellingProductsDocument = FirebaseFirestore.instance
+  CollectionReference resellingProductsCollection = FirebaseFirestore.instance
       .collection('Inventory')
-      .doc('Resellig_Products');
+      .doc('ResellingProducts').collection('ResellingProductsCollection');
 
-  DocumentReference workToolsDocument =
-      FirebaseFirestore.instance.collection('Inventory').doc('Work_Tools');
+  CollectionReference workToolsCollection =
+  FirebaseFirestore.instance.collection('Inventory')
+      .doc('WorkTools')
+      .collection('WorkToolsCollection');
 
-  DocumentReference serviceToolsDocument =
-      FirebaseFirestore.instance.collection('Inventory').doc('Service_Tools');
+  CollectionReference serviceToolsCollection =
+  FirebaseFirestore.instance.collection('Inventory')
+      .doc('ServiceTools')
+      .collection('ServiceToolsCollection');
 
   /// questa mappa contiene una copia dell'inventario completamente convertita in string, successivamente la convertirò in Json per il salvataggio su firebase
   Map<String, Map<String, String>> _inventoryAsMap = {};
@@ -41,62 +50,44 @@ class InventoryJson {
   }
 
 
-
   ///metodo per aggiornare un elemento su Firebase, attualmente questa funzione viene svolta dallo stesso metodo gia esistente per la list inventory
   void updateElementOnFirebase(String id, modifiedElement) {
     if (modifiedElement is Disposable) {
 
       ///TODO compilare questa referenca con i dati dell'item da modificare
-      FirebaseFirestore.instance
-          .collection('Inventory')
-          .doc('Disposables').collection(modifiedElement.id).doc(modifiedElement.title)
+      _disposablesCollection.doc(modifiedElement.id)
           .set(Disposable.returnADisposableAsMap(modifiedElement));
     }
     if (modifiedElement is Ingredient) {
       ///modifico l'elemento nel database online
-      FirebaseFirestore.instance
-          .collection('Inventory')
-          .doc('Ingredients')
-          .collection(modifiedElement.id).doc(modifiedElement.title)
+      ingredientsCollection.doc(modifiedElement.id)
           .set(Ingredient.returnAnIngredientAsMap(modifiedElement));
     }
 
     if (modifiedElement is ResellingProduct) {
-      FirebaseFirestore.instance
-          .collection('Inventory')
-          .doc('Reselling_Products')
-          .collection(modifiedElement.id).doc(modifiedElement.title)
+      resellingProductsCollection.doc(modifiedElement.id)
           .set(ResellingProduct.returnAResellingProductAsMap(modifiedElement));
     }
-    if (modifiedElement is WorkTool ) {
-      FirebaseFirestore.instance
-          .collection('Inventory')
-          .doc('Work_Tools')
-          .collection(modifiedElement.id).doc(modifiedElement.title)
+    if (modifiedElement is WorkTool) {
+      workToolsCollection.doc(modifiedElement.id)
           .set(WorkTool.returnAWorkToolAsMap(modifiedElement));
     }
     if (modifiedElement is ServiceTool) {
-      FirebaseFirestore.instance
-          .collection('Inventory')
-          .doc('Service_Tools')
-          .collection(modifiedElement.id).doc(modifiedElement.title)
+      serviceToolsCollection.doc(modifiedElement.title)
           .set(ServiceTool.returnAServiceToolAsMap(modifiedElement));
     }
   }
 
 
-
-
   ///metodo per salvare un elemento all'inventario Firebase
-  Future<void> _addDataToFirebase(
-      Map dataMap, savingPlaceReference, String nameOfTheInventoryList) async {
+  Future<void> _addDataToFirebase(Map dataMap, savingPlaceReference,
+      String nameOfTheInventoryList) async {
     DocumentReference ref =
-        inventoryFirebaseCollection.doc(nameOfTheInventoryList);
+    inventoryFirebaseCollection.doc(nameOfTheInventoryList);
 
     // NB: alla fine il gico si risolve tutto in collections che contengono documents che contengono collections etc... Quindi basta usare .doc('x').collection('y').doc('z').collection(...)...
     return savingPlaceReference
-        .collection(dataMap['id'])
-        .doc(dataMap['title'])
+        .doc(dataMap['id'])
         .set(dataMap)
         .then((value) => print(" Added"))
         .catchError((error) => print("Failed to add : $error"));
@@ -108,7 +99,7 @@ class InventoryJson {
       //aggiungo l'elemento alla corretta collezione su Firebase
       _addDataToFirebase(
           Disposable.returnADisposableAsMap(newElement),
-          disposablesDocument,
+          _disposablesCollection,
           'Disposables');
 
       print(newElement.id);
@@ -116,7 +107,7 @@ class InventoryJson {
     if (newElement is Ingredient) {
       _addDataToFirebase(
           Ingredient.returnAnIngredientAsMap(newElement),
-          ingredientsDocument,
+          ingredientsCollection,
           'Ingredients');
 
       print(newElement.id);
@@ -124,7 +115,7 @@ class InventoryJson {
     if (newElement is ResellingProduct) {
       _addDataToFirebase(
           ResellingProduct.returnAResellingProductAsMap(newElement),
-          resellingProductsDocument,
+          resellingProductsCollection,
           'Reselling_Prdocucts');
 
       print(newElement.id);
@@ -132,98 +123,88 @@ class InventoryJson {
     if (newElement is ServiceTool) {
       _addDataToFirebase(
           ServiceTool.returnAServiceToolAsMap(newElement),
-          workToolsDocument,
-          'Work_Tools');
+          serviceToolsCollection, 'Service_Tools');
+
 
       print(newElement.id);
     }
     if (newElement is WorkTool) {
       _addDataToFirebase(WorkTool.returnAWorkToolAsMap(newElement),
-          serviceToolsDocument, 'Service_Tools');
+          workToolsCollection,
+          'Work_Tools');
 
       print(newElement.id);
     }
   }
 
 
-  void deleteItemOnFirebase (deletingElement) {
-
+  void deleteItemOnFirebase(deletingElement) {
     if (deletingElement is Disposable) {
-     disposablesDocument.collection(deletingElement.id).get().then((snapshot) {
-       for (DocumentSnapshot ds in snapshot.docs){
-         ds.reference.delete();
-       };
-     });
+      _disposablesCollection.doc(deletingElement.id).delete();
     }
 
+
     if (deletingElement is Ingredient) {
-      ingredientsDocument.collection(deletingElement.id).get().then((snapshot) {
-        for (DocumentSnapshot ds in snapshot.docs){
-          ds.reference.delete();
-        };
-      });
+      ingredientsCollection.doc(deletingElement.id).delete();
     }
 
     if (deletingElement is ResellingProduct) {
-      resellingProductsDocument.collection(deletingElement.id).get().then((snapshot) {
-        for (DocumentSnapshot ds in snapshot.docs){
-          ds.reference.delete();
-        }
-      });
+      resellingProductsCollection.doc(deletingElement.id).delete();
     }
 
     //TODO per qualche motivo i ServiceTools ed i WoorkTools non vneogno eliminati da Firestore --> verificare e risolvere
     if (deletingElement is WorkTool) {
-      workToolsDocument.collection(deletingElement.id).get().then((snapshot) {
-        for (DocumentSnapshot ds in snapshot.docs){
-          ds.reference.delete();
-        };
-      });
+      workToolsCollection.doc(deletingElement.id).delete();
     }
 
     if (deletingElement is ServiceTool) {
-      serviceToolsDocument.collection(deletingElement.id).get().then((snapshot) {
-        for (DocumentSnapshot ds in snapshot.docs){
-          ds.reference.delete();
-        };
-      });
+      serviceToolsCollection.doc(deletingElement.id).delete();
     }
-
-
-
-
   }
-
 
 
   ///metodo per accomunare le list dell'inventory con la map su firebase
   //TODO: riscrivere questo metodo secondo la struttura innestata che ho impostato
-  Future<void> fetchDataFromFirebase() async {
-    // List fetchedList = [];
+  Future<Map<String, dynamic>?> fetchDataFromFirebase() async {
+    List list =[];
+    List<Disposable> disposableList = [];
+//https://stackoverflow.com/questions/46611369/get-all-from-a-firestore-collection-in-flutter#:~:text=This%20is%20the%20easiest%20way%20to%20get%20all%20data%20from%20collection%20that%20I%20found%20working%2C%20without%20using%20deprecated%20methods.
     //
-    // await inventoryFirebaseCollection
-    //     .where(FieldPath.documentId, isEqualTo: documentName)
-    //     .get()
-    //     .then((snapshot) {
-    //   if (snapshot.docs.isNotEmpty) {
-    //     snapshot.docs.asMap().forEach((key, value) {
-    //       fetchedList.add(value);
-    //       print(value.id);
-    //       listInventory = fetchedList;
-    //     });
-    //   }
-    // }).catchError((e) => print("error fetching data: $e"));
-    //
+    QuerySnapshot querySnapshot = await _disposablesCollection.get();
+    // Get data from docs and convert map to List
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    list = allData;
 
-    //TODO: questo di seguito non funziona
-   disposablesDocument.snapshots().forEach((element) {
-     print('ciao ${element.data()}');
-   });
+    for(int i = 0; i < list.length ; i++) {
+      disposableList.add(Disposable.returnADisposableFromMap(list[i]));
 
+      print(list[i]['id']);
+      print(disposableList.length);
+
+    }
+
+    inventory.disposables = disposableList;
+    print('ciao ${inventory.disposables.length}');
 
 
 
   }
+
+
+  // Future<void> getData() async {
+  //   // Get docs from collection reference
+  //   QuerySnapshot querySnapshot = await _disposablesCollection.get();
+  //
+  //
+  //   for(int i = 0; i < querySnapshot.docs.length ; i++) {
+  //     // Get data from docs and convert map to List
+  //     final allData = querySnapshot.docs.map((doc) => doc.data());
+  //
+  //     print(allData);
+  //   }
+
+  // }
+
 
 
 
