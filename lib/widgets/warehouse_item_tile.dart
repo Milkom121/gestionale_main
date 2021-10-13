@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestionale_main/back_end/database/inventory_json.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:gestionale_main/models/real_items/ingredient.dart';
 import 'package:gestionale_main/models/real_items/reselling_product.dart';
@@ -40,7 +41,10 @@ class WarehouseItemTile extends StatelessWidget {
     return Dismissible(
       key: UniqueKey(),
       direction: DismissDirection.endToStart,
-      onDismissed: (_){_inventoryProvider.removeElementById(inventoryObject);},
+      onDismissed: (_){
+        _inventoryProvider.removeElementById(inventoryObject);
+        InventoryJson().deleteItemOnFirebase(inventoryObject);
+        },
       child: Card(
         child: ListTile(
           onTap: () {

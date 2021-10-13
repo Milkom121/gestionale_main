@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gestionale_main/back_end/database/inventory_json.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:gestionale_main/models/real_items/ingredient.dart';
 import 'package:provider/provider.dart';
 
 class NewIngredientItemScreen extends StatefulWidget {
-  Ingredient _newDisposableItem = Ingredient(
+  Ingredient _newIngredientItem = Ingredient(
     id: 'id',
     imageReference: 'imageReference',
     title: 'title',
@@ -33,7 +34,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
   @override
   Widget build(BuildContext context) {
     final _inventoryProvider = Provider.of<Inventory>(context);
-    Ingredient ingredient = widget._newDisposableItem;
+    Ingredient ingredient = widget._newIngredientItem;
     return Column(
       children: [
         SizedBox(
@@ -42,7 +43,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
         Center(
           child: CircleAvatar(
             radius: 50,
-            child: Image.asset(widget._newDisposableItem.imageReference),
+            child: Image.asset(widget._newIngredientItem.imageReference),
           ),
         ),
         Form(
@@ -53,7 +54,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
-                  initialValue: widget._newDisposableItem.title,
+                  initialValue: widget._newIngredientItem.title,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                       labelText: 'Title',
@@ -67,7 +68,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                   },
                   onSaved: (value) {
                     print(value);
-                    widget._newDisposableItem = Ingredient(
+                    widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
                       imageReference: ingredient.imageReference,
                       title: value!,
@@ -90,7 +91,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
-                  initialValue: widget._newDisposableItem.category,
+                  initialValue: widget._newIngredientItem.category,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     labelText: 'Category',
@@ -105,7 +106,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                   },
                   onSaved: (value) {
                     print(value);
-                    widget._newDisposableItem = Ingredient(
+                    widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
                       imageReference: ingredient.imageReference,
                       title: ingredient.title,
@@ -128,7 +129,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
-                  initialValue: widget._newDisposableItem.dealer,
+                  initialValue: widget._newIngredientItem.dealer,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     labelText: 'Dealer',
@@ -143,7 +144,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                   },
                   onSaved: (value) {
                     print(value);
-                    widget._newDisposableItem = Ingredient(
+                    widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
                       imageReference: ingredient.imageReference,
                       title: ingredient.title,
@@ -167,7 +168,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
                   initialValue:
-                      widget._newDisposableItem.maxPackagesSupply.toString(),
+                      widget._newIngredientItem.maxPackagesSupply.toString(),
                   //TODO verificare che il fatto che sia una string e non un int non crei problemi
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
@@ -184,7 +185,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                   },
                   onSaved: (value) {
                     print(value);
-                    widget._newDisposableItem = Ingredient(
+                    widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
                       imageReference: ingredient.imageReference,
                       title: ingredient.title,
@@ -208,7 +209,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
                   initialValue:
-                      widget._newDisposableItem.actualAvailability.toString(),
+                      widget._newIngredientItem.actualAvailability.toString(),
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -224,7 +225,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                   },
                   onSaved: (value) {
                     print(value);
-                    widget._newDisposableItem = Ingredient(
+                    widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
                       imageReference: ingredient.imageReference,
                       title: ingredient.title,
@@ -248,7 +249,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
                   initialValue:
-                      widget._newDisposableItem.purchasePrice.toString(),
+                      widget._newIngredientItem.purchasePrice.toString(),
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -263,10 +264,10 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    Ingredient ingredient = widget._newDisposableItem;
+                    Ingredient ingredient = widget._newIngredientItem;
 
                     print(value);
-                    widget._newDisposableItem = Ingredient(
+                    widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
                       imageReference: ingredient.imageReference,
                       title: ingredient.title,
@@ -290,7 +291,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
                   initialValue:
-                      widget._newDisposableItem.packagesUnitsQuantity.toString(),
+                      widget._newIngredientItem.packagesUnitsQuantity.toString(),
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -306,7 +307,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                   },
                   onSaved: (value) {
                     print(value);
-                    widget._newDisposableItem = Ingredient(
+                    widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
                       imageReference: ingredient.imageReference,
                       title: ingredient.title,
@@ -330,7 +331,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
                   initialValue:
-                      widget._newDisposableItem.singlePackMeasure.toString(),
+                      widget._newIngredientItem.singlePackMeasure.toString(),
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -345,10 +346,10 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    Ingredient ingredient = widget._newDisposableItem;
+                    Ingredient ingredient = widget._newIngredientItem;
 
                     print(value);
-                    widget._newDisposableItem = Ingredient(
+                    widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
                       imageReference: ingredient.imageReference,
                       title: ingredient.title,
@@ -376,7 +377,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
-                  initialValue: widget._newDisposableItem.measureUnit,
+                  initialValue: widget._newIngredientItem.measureUnit,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     labelText: 'Measure Unit',
@@ -391,7 +392,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                   },
                   onSaved: (value) {
                     print(value);
-                    widget._newDisposableItem = Ingredient(
+                    widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
                       imageReference: ingredient.imageReference,
                       title: ingredient.title,
@@ -414,7 +415,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
-                  initialValue: widget._newDisposableItem.imageUrl,
+                  initialValue: widget._newIngredientItem.imageUrl,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     labelText: 'Image Url',
@@ -429,7 +430,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                   },
                   onSaved: (value) {
                     print(value);
-                    widget._newDisposableItem = Ingredient(
+                    widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
                       imageReference: ingredient.imageReference,
                       title: ingredient.title,
@@ -457,9 +458,11 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                       _formKey.currentState!.save();
 
                       setState(() {
-                        _inventoryProvider.addNewElementToCorrectInventoryAndID(
-                            widget._newDisposableItem);
+                        _inventoryProvider.addNewElementToCorrectInventoryAndID(widget._newIngredientItem);
+
                       });
+
+                      InventoryJson().addNewElementToCorrectFirebaseDocument(widget._newIngredientItem);
 
                       Navigator.pop(context);
                     },

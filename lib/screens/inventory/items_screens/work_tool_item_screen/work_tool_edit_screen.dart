@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gestionale_main/back_end/database/inventory_json.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/servicies_tools.dart';
 import 'package:gestionale_main/models/real_items/work_tools.dart';
@@ -8,11 +9,11 @@ import 'package:provider/provider.dart';
 ///direttamente nel file della pagina di dettaglio dello schermo creo una pagina specifica per la modifica dei dati dell'oggetto
 
 class WorkToolEditScreen extends StatefulWidget {
-  WorkToolEditScreen(this.workToolItem);
+  WorkToolEditScreen(this._workToolItem);
 
 
 
-  WorkTool workToolItem;
+  WorkTool _workToolItem;
 
   @override
   _WorkToolEditScreenState createState() => _WorkToolEditScreenState();
@@ -45,7 +46,9 @@ class _WorkToolEditScreenState extends State<WorkToolEditScreen> {
             onPressed: (){
               _formKey.currentState!.save();
 
-              inventoryProvider.updateElement(widget.workToolItem.id, widget.workToolItem);
+              inventoryProvider.updateElement(widget._workToolItem.id, widget._workToolItem);
+
+              InventoryJson().updateElementOnFirebase(widget._workToolItem.id, widget._workToolItem);
 
               Navigator.pop(context);
 
@@ -61,7 +64,7 @@ class _WorkToolEditScreenState extends State<WorkToolEditScreen> {
               Center(
                 child: CircleAvatar(
                   radius:50,
-                  child: Image.asset(widget.workToolItem.imageReference),
+                  child: Image.asset(widget._workToolItem.imageReference),
                 ),
               ),
 
@@ -73,7 +76,7 @@ class _WorkToolEditScreenState extends State<WorkToolEditScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 25, right: 35),
                       child: TextFormField(
-                        initialValue: widget.workToolItem.title,
+                        initialValue: widget._workToolItem.title,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                             labelText: 'Title',
@@ -88,9 +91,9 @@ class _WorkToolEditScreenState extends State<WorkToolEditScreen> {
                         },
                         onSaved: (value) {
 
-                          WorkTool _workTool = widget.workToolItem;
+                          WorkTool _workTool = widget._workToolItem;
                           print(value);
-                          widget.workToolItem = WorkTool(
+                          widget._workToolItem = WorkTool(
                             id: _workTool.id,
                             imageReference: _workTool.imageReference,
                             title: value!,
@@ -105,7 +108,7 @@ class _WorkToolEditScreenState extends State<WorkToolEditScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 25, right: 35),
                       child: TextFormField(
-                        initialValue: widget.workToolItem.category,
+                        initialValue: widget._workToolItem.category,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(labelText: 'Category',
                           labelStyle: TextStyle(fontSize: 22 , color: Colors.blue),),
@@ -117,9 +120,9 @@ class _WorkToolEditScreenState extends State<WorkToolEditScreen> {
                           return null;
                         },
                         onSaved: (value) {
-                          WorkTool _workTool = widget.workToolItem;
+                          WorkTool _workTool = widget._workToolItem;
                           print(value);
-                          widget.workToolItem = WorkTool(
+                          widget._workToolItem = WorkTool(
                             id: _workTool.id,
                             imageReference: _workTool.imageReference,
                             title: _workTool.title,
@@ -136,7 +139,7 @@ class _WorkToolEditScreenState extends State<WorkToolEditScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 25, right: 35),
                       child: TextFormField(
-                        initialValue: widget.workToolItem.actualAvailability.toString(),
+                        initialValue: widget._workToolItem.actualAvailability.toString(),
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.number,
                         decoration:
@@ -150,9 +153,9 @@ class _WorkToolEditScreenState extends State<WorkToolEditScreen> {
                           return null;
                         },
                         onSaved: (value) {
-                          WorkTool _workTool = widget.workToolItem;
+                          WorkTool _workTool = widget._workToolItem;
                           print(value);
-                          widget.workToolItem = WorkTool(
+                          widget._workToolItem = WorkTool(
                             id: _workTool.id,
                             imageReference: _workTool.imageReference,
                             title: _workTool.title,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestionale_main/back_end/database/inventory_json.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/screens/inventory/items_screens/new_item_screens/new_item_tab_bar.dart';
 import 'package:gestionale_main/widgets/inventory_screen_items_listview.dart';
@@ -25,10 +26,9 @@ bool isSearching = false;
 @override
   void initState() {
     // TODO: implement initState
+    InventoryJson().fetchDataFromFirebase();
     super.initState();
-    Inventory().fetchDataFromFirebase('Disposable', Inventory().disposables);
   }
-
   @override
   Widget build(BuildContext context) {
     final inventoryProvider = Provider.of<Inventory>(context);

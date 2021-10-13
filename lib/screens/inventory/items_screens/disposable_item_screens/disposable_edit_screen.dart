@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gestionale_main/back_end/database/inventory_json.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +43,7 @@ class _DisposableEditScreenState extends State<DisposableEditScreen> {
               _formKey.currentState!.save();
 
               inventoryProvider.updateElement(widget._disposableItem.id, widget._disposableItem);
+              InventoryJson().updateElementOnFirebase(widget._disposableItem.id, widget._disposableItem);
 
               Navigator.pop(context);
 

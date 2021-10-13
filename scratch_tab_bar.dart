@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gestionale_main/screens/inventory/items_screens/new_item_screens/create_new_items_screens/new_disposable_screen.dart';
+import 'package:gestionale_main/screens/inventory/items_screens/disposable_item_screens/new_disposable_screen.dart';
 
 void main() {
   runApp(MyApp());

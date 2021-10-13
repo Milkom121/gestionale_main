@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gestionale_main/back_end/database/inventory_json.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:gestionale_main/models/real_items/reselling_product.dart';
@@ -45,6 +46,8 @@ class _ResellingProductEditScreenState
 
               inventoryProvider.updateElement(widget._resellingProductItem.id,
                   widget._resellingProductItem);
+
+              InventoryJson().updateElementOnFirebase(widget._resellingProductItem.id, widget._resellingProductItem);
 
               Navigator.pop(context);
             },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gestionale_main/back_end/database/inventory_json.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:gestionale_main/models/real_items/ingredient.dart';
@@ -300,9 +301,10 @@ class _NewResellingProductItemScreenState
                       _formKey.currentState!.save();
 
                       setState(() {
-                        _inventoryProvider.addNewElementToCorrectInventoryAndID(
-                            widget._newResellingProductItem);
+                        _inventoryProvider.addNewElementToCorrectInventoryAndID(widget._newResellingProductItem);
                       });
+
+                      InventoryJson().addNewElementToCorrectFirebaseDocument(widget._newResellingProductItem);
 
                       Navigator.pop(context);
                     },

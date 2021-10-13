@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gestionale_main/back_end/database/inventory_json.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/servicies_tools.dart';
 import 'package:provider/provider.dart';
@@ -7,11 +8,11 @@ import 'package:provider/provider.dart';
 ///direttamente nel file della pagina di dettaglio dello schermo creo una pagina specifica per la modifica dei dati dell'oggetto
 
 class ServiceToolEditScreen extends StatefulWidget {
-  ServiceToolEditScreen(this.serviceToolItem);
+  ServiceToolEditScreen(this._serviceToolItem);
 
 
 
-  ServiceTool serviceToolItem;
+  ServiceTool _serviceToolItem;
 
   @override
   _ServiceToolEditScreenState createState() => _ServiceToolEditScreenState();
@@ -44,7 +45,9 @@ class _ServiceToolEditScreenState extends State<ServiceToolEditScreen> {
             onPressed: (){
               _formKey.currentState!.save();
 
-              inventoryProvider.updateElement(widget.serviceToolItem.id, widget.serviceToolItem);
+              inventoryProvider.updateElement(widget._serviceToolItem.id, widget._serviceToolItem);
+
+              InventoryJson().updateElementOnFirebase(widget._serviceToolItem.id, widget._serviceToolItem);
 
               Navigator.pop(context);
 
@@ -60,7 +63,7 @@ class _ServiceToolEditScreenState extends State<ServiceToolEditScreen> {
               Center(
                 child: CircleAvatar(
                   radius:50,
-                  child: Image.asset(widget.serviceToolItem.imageReference),
+                  child: Image.asset(widget._serviceToolItem.imageReference),
                 ),
               ),
 
@@ -72,7 +75,7 @@ class _ServiceToolEditScreenState extends State<ServiceToolEditScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 25, right: 35),
                       child: TextFormField(
-                        initialValue: widget.serviceToolItem.title,
+                        initialValue: widget._serviceToolItem.title,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                             labelText: 'Title',
@@ -87,9 +90,9 @@ class _ServiceToolEditScreenState extends State<ServiceToolEditScreen> {
                         },
                         onSaved: (value) {
 
-                          ServiceTool _serviceTool = widget.serviceToolItem;
+                          ServiceTool _serviceTool = widget._serviceToolItem;
                           print(value);
-                          widget.serviceToolItem = ServiceTool(
+                          widget._serviceToolItem = ServiceTool(
                             id: _serviceTool.id,
                             imageReference: _serviceTool.imageReference,
                             title: value!,
@@ -104,7 +107,7 @@ class _ServiceToolEditScreenState extends State<ServiceToolEditScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 25, right: 35),
                       child: TextFormField(
-                        initialValue: widget.serviceToolItem.variety,
+                        initialValue: widget._serviceToolItem.variety,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(labelText: 'Category',
                           labelStyle: TextStyle(fontSize: 22 , color: Colors.blue),),
@@ -116,9 +119,9 @@ class _ServiceToolEditScreenState extends State<ServiceToolEditScreen> {
                           return null;
                         },
                         onSaved: (value) {
-                          ServiceTool _serviceTool = widget.serviceToolItem;
+                          ServiceTool _serviceTool = widget._serviceToolItem;
                           print(value);
-                          widget.serviceToolItem = ServiceTool(
+                          widget._serviceToolItem = ServiceTool(
                             id: _serviceTool.id,
                             imageReference: _serviceTool.imageReference,
                             title: value!,
@@ -135,7 +138,7 @@ class _ServiceToolEditScreenState extends State<ServiceToolEditScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 25, right: 35),
                       child: TextFormField(
-                        initialValue: widget.serviceToolItem.actualAvailability.toString(),
+                        initialValue: widget._serviceToolItem.actualAvailability.toString(),
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.number,
                         decoration:
@@ -149,9 +152,9 @@ class _ServiceToolEditScreenState extends State<ServiceToolEditScreen> {
                           return null;
                         },
                         onSaved: (value) {
-                          ServiceTool _serviceTool = widget.serviceToolItem;
+                          ServiceTool _serviceTool = widget._serviceToolItem;
                           print(value);
-                          widget.serviceToolItem =ServiceTool(
+                          widget._serviceToolItem =ServiceTool(
                             id: _serviceTool.id,
                             imageReference: _serviceTool.imageReference,
                             title: value!,

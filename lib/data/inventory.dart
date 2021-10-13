@@ -11,28 +11,6 @@ import 'package:gestionale_main/models/real_items/work_tools.dart';
 
 /// qui definiamo l'Inventario, ovvero il file contenente tutto ciò che c'è e non c'è al Main
 class Inventory with ChangeNotifier {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  ///questa variabile è un riferimento alla collection 'inventory' in firebase
-  CollectionReference inventoryFirebaseCollection =
-      FirebaseFirestore.instance.collection('Inventory');
-
-  ///queste variabili invece si riferiscono ad un documento ('disposables' ,'ingredients'...) dentro la collection inventory
-  DocumentReference disposablesDocument =
-      FirebaseFirestore.instance.collection('Inventory').doc('Disposables');
-
-  DocumentReference ingredientsDocument =
-      FirebaseFirestore.instance.collection('Inventory').doc('Ingredients');
-
-  DocumentReference resellingProductsDocument = FirebaseFirestore.instance
-      .collection('Inventory')
-      .doc('Resellig_Products');
-
-  DocumentReference workToolsDocument =
-      FirebaseFirestore.instance.collection('Inventory').doc('Work_Tools');
-
-  DocumentReference serviceToolsDocument =
-      FirebaseFirestore.instance.collection('Inventory').doc('Service_Tools');
 
   /// inventario dei prodotti usa e getta
   List<Disposable> disposables = [
@@ -110,12 +88,7 @@ class Inventory with ChangeNotifier {
     ),
   ];
 
-  /// questa mappa contiene una copia dell'inventario completamente convertita in string, successivamente la convertirò in Json per il salvataggio su firebase
-  Map<String, Map<String, String>> _inventoryAsMap = {};
 
-  Map<String, Map<String, String>> get inventoryAsMap {
-    return {..._inventoryAsMap};
-  }
 
   List<dynamic> _foundInventoryElements = [];
 
@@ -147,88 +120,14 @@ class Inventory with ChangeNotifier {
     return _allItemsList;
   }
 
-  /// metodo che prende un ID ed un nuovo elemento modificato dell'inventario, utilizza l'ID per trovare il suo corrispondente nell'inventario e lo sostituisce con l'elemento modificato
-  void updateElement(String id, modifiedElement) {
-    if (modifiedElement is Disposable) {
-      // indexwhere mi consente di restituire l'indice dell'elemento che cerco e mi consente di poterlo sostituire
-      disposables[disposables.indexWhere(
-          (element) => element.id == modifiedElement.id)] = modifiedElement;
 
-      ///TODO compilare questa referenca con i dati dell'item da modificare
-      FirebaseFirestore.instance
-          .collection('Inventory')
-          .doc('Disposables')
-          .update({modifiedElement.id: modifiedElement});
-    }
-    if (modifiedElement is Ingredient) {
-      ///modifico l'elemento nella lista locale
-      ingredients[ingredients.indexWhere(
-          (element) => element.id == modifiedElement.id)] = modifiedElement;
-
-      ///modifico l'elemento nel database online
-      FirebaseFirestore.instance
-          .collection('Inventory')
-          .doc('Ingredients')
-          .update({modifiedElement.id: modifiedElement});
-    }
-    if (modifiedElement is ResellingProduct) {
-      resellingProducts[resellingProducts.indexWhere(
-          (element) => element.id == modifiedElement.id)] = modifiedElement;
-      FirebaseFirestore.instance
-          .collection('Inventory')
-          .doc('Reselling_Products')
-          .update({modifiedElement.id: modifiedElement});
-    }
-    if (modifiedElement is ServiceTool) {
-      serviceTools[serviceTools.indexWhere(
-          (element) => element.id == modifiedElement.id)] = modifiedElement;
-      FirebaseFirestore.instance
-          .collection('Inventory')
-          .doc('Work_Tools')
-          .update({modifiedElement.id: modifiedElement});
-    }
-    if (modifiedElement is WorkTool) {
-      workTools[workTools.indexWhere(
-          (element) => element.id == modifiedElement.id)] = modifiedElement;
-      FirebaseFirestore.instance
-          .collection('Inventory')
-          .doc('Service_Tools')
-          .update({modifiedElement.id: modifiedElement});
-    }
-    inventoryToMap();
-    notifyListeners();
-  }
-
-  ///metodo per salvare un elemento all'inventario Firebase
-  Future<void> addDataToCollectionFirebase(Map dataMap, savingPlaceReference, String nameOfTheInventoryList) async {
-
-    DocumentReference ref = inventoryFirebaseCollection.doc(nameOfTheInventoryList);
-
- // NB: alla fine il gico si risolve tutto in collections che contengono documents che contengono collections etc... Quindi basta usare .doc('x').collection('y').doc('z').collection(...)...
-    return savingPlaceReference.collection(dataMap['id']).doc(dataMap['title'])
-        .set(dataMap)
-        .then((value) => print(" Added"))
-        .catchError((error) => print("Failed to add : $error"));
-  }
-
-  ///metodo per aggiornare un elemento su Firebase, attualmente questa funzione viene svolta dallo stesso metodo gia esistente per la list inventory
-
-  Future<void> updateElementInFirebase(
-      updatedElement, elementPositionInFirebase) {
-    return FirebaseFirestore.instance
-        .collection('collection_name')
-        .doc('document_id')
-        .update({'field_name': 'Some new data'});
-  }
 
   /// metodo per aggiungere nuovi elementi nelle liste corrette
   void addNewElementToCorrectInventoryAndID(newElement) {
     if (newElement is Disposable) {
       newElement.id = 'D_${newElement.title}';
       disposables.add(newElement);
-      //aggiungo l'elemento alla corretta collezione su Firebase
-      addDataToCollectionFirebase(Disposable.returnADisposableAsMap(newElement),
-          disposablesDocument, 'Disposables');
+
 
       // disposablesFirebaseCollection.add(Disposable.returnADisposableAsMap(newElement)).then((value) => print("Day Added"))
       //     .catchError((error) => print("Failed to add Day: $error"));
@@ -240,9 +139,7 @@ class Inventory with ChangeNotifier {
       newElement.id = 'I_${newElement.title}';
       ingredients.add(newElement);
 
-      addDataToCollectionFirebase(
-          Ingredient.returnAnIngredientAsMap(newElement),
-          inventoryFirebaseCollection, 'Ingredients');
+
 
       print(newElement.id);
     }
@@ -250,9 +147,7 @@ class Inventory with ChangeNotifier {
       newElement.id = 'R_${newElement.title}';
       resellingProducts.add(newElement);
 
-      addDataToCollectionFirebase(
-          ResellingProduct.returnAResellingProductAsMap(newElement),
-          inventoryFirebaseCollection, 'Reselling_Prdocucts');
+
 
       print(newElement.id);
     }
@@ -260,9 +155,7 @@ class Inventory with ChangeNotifier {
       newElement.id = 'S_${newElement.title}';
       serviceTools.add(newElement);
 
-      addDataToCollectionFirebase(
-          ServiceTool.returnAServiceToolAsMap(newElement),
-          inventoryFirebaseCollection, 'Work_Tools');
+
 
       print(newElement.id);
     }
@@ -270,8 +163,6 @@ class Inventory with ChangeNotifier {
       newElement.id = 'W_${newElement.title}';
       workTools.add(newElement);
 
-      addDataToCollectionFirebase(WorkTool.returnAWorkToolAsMap(newElement),
-          inventoryFirebaseCollection , 'Service_Tools');
 
       print(newElement.id);
     }
@@ -279,6 +170,48 @@ class Inventory with ChangeNotifier {
     inventoryToMap();
     notifyListeners();
   }
+
+
+  /// metodo che prende un ID ed un nuovo elemento modificato dell'inventario, utilizza l'ID per trovare il suo corrispondente nell'inventario e lo sostituisce con l'elemento modificato
+  void updateElement(String id, modifiedElement) {
+    if (modifiedElement is Disposable) {
+      // indexwhere mi consente di restituire l'indice dell'elemento che cerco e mi consente di poterlo sostituire
+      disposables[disposables.indexWhere(
+          (element) => element.id == modifiedElement.id)] = modifiedElement;
+
+
+    }
+    if (modifiedElement is Ingredient) {
+      ///modifico l'elemento nella lista locale
+      ingredients[ingredients.indexWhere(
+          (element) => element.id == modifiedElement.id)] = modifiedElement;
+
+
+    }
+    if (modifiedElement is ResellingProduct) {
+      resellingProducts[resellingProducts.indexWhere(
+          (element) => element.id == modifiedElement.id)] = modifiedElement;
+
+    }
+    if (modifiedElement is ServiceTool) {
+      serviceTools[serviceTools.indexWhere(
+          (element) => element.id == modifiedElement.id)] = modifiedElement;
+
+    }
+    if (modifiedElement is WorkTool) {
+      workTools[workTools.indexWhere(
+          (element) => element.id == modifiedElement.id)] = modifiedElement;
+
+    }
+    inventoryToMap();
+    notifyListeners();
+  }
+
+
+
+
+
+
 
   /// metodo per trovare tutti gli elementi per nome
   void findElemetsByName(String itemSearchingText) {
@@ -342,29 +275,12 @@ class Inventory with ChangeNotifier {
             element.id, () => WorkTool.returnAWorkToolAsMap(element));
       }
     });
-    _inventoryAsMap = map;
+   // _inventoryAsMap = map;
   }
 
   ///fine metodi per ora inutili----------------------------------------------------------------
 
-  ///metodo per accomunare le list dell'inventory con la map su firebase
-  //TODO: riscrivere questo metodo secondo la struttura innestata che ho impostato
-  Future<void> fetchDataFromFirebase(String documentName , List listInventory) async {
-    List fetchedList = [];
 
-    await inventoryFirebaseCollection
-        .where(FieldPath.documentId, isEqualTo: documentName)
-        .get()
-        .then((snapshot) {
-      if (snapshot.docs.isNotEmpty) {
-        snapshot.docs.asMap().forEach((key, value) {
-          fetchedList.add(value);
-          print(value.id);
-          listInventory = fetchedList;
-        });
-      }
-    }).catchError((e) => print("error fetching data: $e"));
-  }
 
 
 

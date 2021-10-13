@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gestionale_main/screens/inventory/items_screens/new_item_screens/create_new_items_screens/new_reselling_product_screen.dart';
-import 'package:gestionale_main/screens/inventory/items_screens/new_item_screens/create_new_items_screens/new_service_tool_screen.dart';
-import 'package:gestionale_main/screens/inventory/items_screens/new_item_screens/create_new_items_screens/new_work_tool_screen.dart';
+import 'package:gestionale_main/screens/inventory/items_screens/reselling_product_item_screen/new_reselling_product_screen.dart';
+import 'package:gestionale_main/screens/inventory/items_screens/service_tool_item_screens/new_service_tool_screen.dart';
+import 'package:gestionale_main/screens/inventory/items_screens/work_tool_item_screen/new_work_tool_screen.dart';
 
-import 'create_new_items_screens/new_disposable_screen.dart';
-import 'create_new_items_screens/new_ingredient_screen.dart';
+import '../disposable_item_screens/new_disposable_screen.dart';
+import '../ingredient_item_screens/new_ingredient_screen.dart';
 
 class NewItemTabBAr extends StatefulWidget {
   @override

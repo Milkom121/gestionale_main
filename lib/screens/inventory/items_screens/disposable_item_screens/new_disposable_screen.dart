@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gestionale_main/back_end/database/inventory_json.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:provider/provider.dart';
@@ -365,7 +366,10 @@ class _NewDisposableItemScreenState extends State<NewDisposableItemScreen> {
 
                       setState(() {
                         _inventoryProvider.addNewElementToCorrectInventoryAndID(widget._newDisposableItem);
+
                       });
+                      InventoryJson().addNewElementToCorrectFirebaseDocument(widget._newDisposableItem);
+
 
                       Navigator.pop(context);
 

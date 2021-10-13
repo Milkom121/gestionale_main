@@ -1,36 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gestionale_main/back_end/database/inventory_json.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:gestionale_main/models/real_items/ingredient.dart';
 import 'package:gestionale_main/models/real_items/reselling_product.dart';
 import 'package:gestionale_main/models/real_items/servicies_tools.dart';
+import 'package:gestionale_main/models/real_items/work_tools.dart';
 import 'package:provider/provider.dart';
 
-class NewServiceTooItemScreen extends StatefulWidget {
+class NewWorkTooItemScreen extends StatefulWidget {
 
-  ServiceTool _newServiceToolItem = ServiceTool(
+  WorkTool _newWorkToolItem = WorkTool(
     id: 'id',
     imageReference: 'imageReference',
     title: 'title',
-    variety: 'variety',
     actualAvailability: 0,
+    category: 'category',
 
   );
 
   @override
-  _NewServiceTooItemScreenState createState() =>
-      _NewServiceTooItemScreenState();
+  _NewWorkTooItemScreenState createState() =>
+      _NewWorkTooItemScreenState();
 }
 
-class _NewServiceTooItemScreenState
-    extends State<NewServiceTooItemScreen> {
+class _NewWorkTooItemScreenState
+    extends State<NewWorkTooItemScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final _inventoryProvider = Provider.of<Inventory>(context);
-    ServiceTool _serviceToolItem = widget._newServiceToolItem;
+    WorkTool _workToolItem = widget._newWorkToolItem;
     return Column(
       children: [
         SizedBox(
@@ -39,7 +41,7 @@ class _NewServiceTooItemScreenState
         Center(
           child: CircleAvatar(
             radius: 50,
-            child: Image.asset(widget._newServiceToolItem.imageReference),
+            child: Image.asset(widget._newWorkToolItem.imageReference),
           ),
         ),
         Form(
@@ -50,7 +52,7 @@ class _NewServiceTooItemScreenState
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
-                  initialValue: widget._newServiceToolItem.title,
+                  initialValue: widget._newWorkToolItem.title,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                       labelText: 'Title',
@@ -67,22 +69,22 @@ class _NewServiceTooItemScreenState
 
 
                     print(value);
-                    widget._newServiceToolItem = ServiceTool(
-                      id: _serviceToolItem.id,
-                      imageReference: _serviceToolItem.imageReference,
+                    widget._newWorkToolItem = WorkTool(
+                      id: _workToolItem.id,
+                      imageReference: _workToolItem.imageReference,
                       title: value!,
-                      actualAvailability: _serviceToolItem.actualAvailability,
-                      variety: _serviceToolItem.variety,
+                      actualAvailability: _workToolItem.actualAvailability,
+                      category: _workToolItem.category,
                     );
                   },
                 ),
               ), // NOME
 
-              ///form per la VARIETy -STRING-
+              ///form per la CATEGORY -STRING-
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
-                  initialValue: widget._newServiceToolItem.variety,
+                  initialValue: widget._newWorkToolItem.category,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(labelText: 'Category',
                     labelStyle: TextStyle(fontSize: 22 , color: Colors.blue),),
@@ -96,12 +98,12 @@ class _NewServiceTooItemScreenState
                   onSaved: (value) {
 
                     print(value);
-                    widget._newServiceToolItem = ServiceTool(
-                      id: _serviceToolItem.id,
-                      imageReference: _serviceToolItem.imageReference,
-                      title: value!,
-                      actualAvailability: _serviceToolItem.actualAvailability,
-                      variety: _serviceToolItem.variety,
+                    widget._newWorkToolItem = WorkTool(
+                      id: _workToolItem.id,
+                      imageReference: _workToolItem.imageReference,
+                      title: _workToolItem.category,
+                      actualAvailability: _workToolItem.actualAvailability,
+                      category: value!,
                     );
                   },
                 ),
@@ -113,7 +115,7 @@ class _NewServiceTooItemScreenState
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
-                  initialValue: widget._newServiceToolItem.actualAvailability.toString(),
+                  initialValue: widget._newWorkToolItem.actualAvailability.toString(),
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   decoration:
@@ -129,12 +131,12 @@ class _NewServiceTooItemScreenState
                   onSaved: (value) {
 
                     print(value);
-                    widget._newServiceToolItem =ServiceTool(
-                      id: _serviceToolItem.id,
-                      imageReference: _serviceToolItem.imageReference,
-                      title: value!,
-                      actualAvailability: _serviceToolItem.actualAvailability,
-                      variety: _serviceToolItem.variety,
+                    widget._newWorkToolItem = WorkTool(
+                      id: _workToolItem.id,
+                      imageReference: _workToolItem.imageReference,
+                      title: _workToolItem.title,
+                      actualAvailability: int.parse(value!),
+                      category: _workToolItem.category,
                     );
                   },
                 ),
@@ -150,9 +152,10 @@ class _NewServiceTooItemScreenState
                       _formKey.currentState!.save();
 
                       setState(() {
-                        _inventoryProvider.addNewElementToCorrectInventoryAndID(
-                            widget._newServiceToolItem);
+                        _inventoryProvider.addNewElementToCorrectInventoryAndID(widget._newWorkToolItem);
                       });
+
+                      InventoryJson().addNewElementToCorrectFirebaseDocument(widget._newWorkToolItem);
 
                       Navigator.pop(context);
                     },
