@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gestionale_main/back_end/database/inventory_json.dart';
+import 'package:gestionale_main/back_end/database/inventory_firestore.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:gestionale_main/models/real_items/ingredient.dart';
@@ -35,7 +35,7 @@ class _NewResellingProductItemScreenState
   @override
   Widget build(BuildContext context) {
     final _inventoryProvider = Provider.of<Inventory>(context);
-    ResellingProduct _resellingProduct = widget._newResellingProductItem;
+
     return Column(
       children: [
         SizedBox(
@@ -68,6 +68,7 @@ class _NewResellingProductItemScreenState
                     return null;
                   },
                   onSaved: (value) {
+                    ResellingProduct _resellingProduct = widget._newResellingProductItem;
                     print(value);
                     widget._newResellingProductItem = ResellingProduct(
                       id: _resellingProduct.id,
@@ -105,6 +106,7 @@ class _NewResellingProductItemScreenState
                     return null;
                   },
                   onSaved: (value) {
+                    ResellingProduct _resellingProduct = widget._newResellingProductItem;
                     print(value);
                     widget._newResellingProductItem = ResellingProduct(
                       id: _resellingProduct.id,
@@ -142,6 +144,7 @@ class _NewResellingProductItemScreenState
                     return null;
                   },
                   onSaved: (value) {
+                    ResellingProduct _resellingProduct = widget._newResellingProductItem;
                     print(value);
                     widget._newResellingProductItem = ResellingProduct(
                       id: _resellingProduct.id,
@@ -182,6 +185,7 @@ class _NewResellingProductItemScreenState
                     return null;
                   },
                   onSaved: (value) {
+                    ResellingProduct _resellingProduct = widget._newResellingProductItem;
                     print(value);
                     widget._newResellingProductItem = ResellingProduct(
                       id: _resellingProduct.id,
@@ -222,6 +226,7 @@ class _NewResellingProductItemScreenState
                     return null;
                   },
                   onSaved: (value) {
+                    ResellingProduct _resellingProduct = widget._newResellingProductItem;
                     print(value);
                     widget._newResellingProductItem = ResellingProduct(
                       id: _resellingProduct.id,
@@ -262,7 +267,7 @@ class _NewResellingProductItemScreenState
                   },
                   onSaved: (value) {
 
-
+                    ResellingProduct _resellingProduct = widget._newResellingProductItem;
                     print(value);
                     widget._newResellingProductItem = ResellingProduct(
                       id: _resellingProduct.id,
@@ -304,7 +309,7 @@ class _NewResellingProductItemScreenState
                         _inventoryProvider.addNewElementToCorrectInventoryAndID(widget._newResellingProductItem);
                       });
 
-                      InventoryJson().addNewElementToCorrectFirebaseDocument(widget._newResellingProductItem);
+                      InventoryFirestore().addNewElementToCorrectFirebaseCollection(widget._newResellingProductItem);
 
                       Navigator.pop(context);
                     },

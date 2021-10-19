@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:gestionale_main/back_end/database/inventory_firestore.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:gestionale_main/models/real_items/ingredient.dart';
 import 'package:gestionale_main/models/real_items/reselling_product.dart';
@@ -69,24 +70,12 @@ class Inventory with ChangeNotifier {
 
   /// inventario degli strumenti di servizio
   List<ServiceTool> serviceTools = [
-    ServiceTool(
-      id: '',
-      title: 'Martello',
-      variety: 'Normale',
-      actualAvailability: 1,
-      imageReference: 'assets/images/mainsummer_logo.png',
-    ),
+
   ];
 
   /// inventario degli strumenti di lavoro
   List<WorkTool> workTools = [
-    WorkTool(
-      id: '',
-      imageReference: 'assets/images/mainsummer_logo.png',
-      title: 'Padella',
-      category: 'Cucina',
-      actualAvailability: 1,
-    ),
+
   ];
 
 
@@ -260,9 +249,11 @@ class Inventory with ChangeNotifier {
     notifyListeners();
   }
 
+
+
   ///inizio metodi per ora inutili---------------------------------------------------------------
   void inventoryToMap() {
-    Map<String, Map<String, String>> map = {};
+    Map<String, Map<String, dynamic>> map = {};
 
     allItemsInInventory.forEach((element) {
       if (element is Disposable) {

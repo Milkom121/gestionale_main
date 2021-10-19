@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gestionale_main/back_end/database/inventory_json.dart';
+import 'package:gestionale_main/back_end/database/inventory_firestore.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:gestionale_main/models/real_items/ingredient.dart';
@@ -12,6 +12,7 @@ class NewServiceTooItemScreen extends StatefulWidget {
 
   ServiceTool _newServiceToolItem = ServiceTool(
     id: 'id',
+    dealer: 'dealer',
     imageReference: 'imageReference',
     title: 'title',
     variety: 'variety',
@@ -31,7 +32,7 @@ class _NewServiceTooItemScreenState
   @override
   Widget build(BuildContext context) {
     final _inventoryProvider = Provider.of<Inventory>(context);
-    ServiceTool _serviceToolItem = widget._newServiceToolItem;
+
     return Column(
       children: [
         SizedBox(
@@ -65,11 +66,12 @@ class _NewServiceTooItemScreenState
                     return null;
                   },
                   onSaved: (value) {
-
+                    ServiceTool _serviceToolItem = widget._newServiceToolItem;
 
                     print(value);
                     widget._newServiceToolItem = ServiceTool(
                       id: _serviceToolItem.id,
+                      dealer: _serviceToolItem.dealer,
                       imageReference: _serviceToolItem.imageReference,
                       title: value!,
                       actualAvailability: _serviceToolItem.actualAvailability,
@@ -95,10 +97,11 @@ class _NewServiceTooItemScreenState
                     return null;
                   },
                   onSaved: (value) {
-
+                    ServiceTool _serviceToolItem = widget._newServiceToolItem;
                     print(value);
                     widget._newServiceToolItem = ServiceTool(
                       id: _serviceToolItem.id,
+                      dealer: _serviceToolItem.dealer,
                       imageReference: _serviceToolItem.imageReference,
                       title: value!,
                       actualAvailability: _serviceToolItem.actualAvailability,
@@ -128,10 +131,11 @@ class _NewServiceTooItemScreenState
                     return null;
                   },
                   onSaved: (value) {
-
+                    ServiceTool _serviceToolItem = widget._newServiceToolItem;
                     print(value);
                     widget._newServiceToolItem =ServiceTool(
                       id: _serviceToolItem.id,
+                      dealer: _serviceToolItem.dealer,
                       imageReference: _serviceToolItem.imageReference,
                       title: value!,
                       actualAvailability: _serviceToolItem.actualAvailability,
@@ -154,7 +158,7 @@ class _NewServiceTooItemScreenState
                         _inventoryProvider.addNewElementToCorrectInventoryAndID(widget._newServiceToolItem);
                       });
 
-                      InventoryJson().addNewElementToCorrectFirebaseDocument(widget._newServiceToolItem);
+                      InventoryFirestore().addNewElementToCorrectFirebaseCollection(widget._newServiceToolItem);
 
                       Navigator.pop(context);
                     },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gestionale_main/back_end/database/inventory_json.dart';
+import 'package:gestionale_main/back_end/database/inventory_firestore.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/servicies_tools.dart';
 import 'package:gestionale_main/models/real_items/work_tools.dart';
@@ -48,7 +48,7 @@ class _WorkToolEditScreenState extends State<WorkToolEditScreen> {
 
               inventoryProvider.updateElement(widget._workToolItem.id, widget._workToolItem);
 
-              InventoryJson().updateElementOnFirebase(widget._workToolItem.id, widget._workToolItem);
+              InventoryFirestore().updateElementOnFirebase(widget._workToolItem.id, widget._workToolItem);
 
               Navigator.pop(context);
 
@@ -95,6 +95,7 @@ class _WorkToolEditScreenState extends State<WorkToolEditScreen> {
                           print(value);
                           widget._workToolItem = WorkTool(
                             id: _workTool.id,
+                            dealer: _workTool.dealer,
                             imageReference: _workTool.imageReference,
                             title: value!,
                             actualAvailability: _workTool.actualAvailability,
@@ -124,6 +125,7 @@ class _WorkToolEditScreenState extends State<WorkToolEditScreen> {
                           print(value);
                           widget._workToolItem = WorkTool(
                             id: _workTool.id,
+                            dealer: _workTool.dealer,
                             imageReference: _workTool.imageReference,
                             title: _workTool.title,
                             actualAvailability: _workTool.actualAvailability,
@@ -157,6 +159,7 @@ class _WorkToolEditScreenState extends State<WorkToolEditScreen> {
                           print(value);
                           widget._workToolItem = WorkTool(
                             id: _workTool.id,
+                            dealer: _workTool.dealer,
                             imageReference: _workTool.imageReference,
                             title: _workTool.title,
                             actualAvailability: int.parse(value!),

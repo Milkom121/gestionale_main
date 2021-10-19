@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gestionale_main/back_end/database/inventory_json.dart';
+import 'package:gestionale_main/back_end/database/inventory_firestore.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/ingredient.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +44,7 @@ class _IngredientEditScreenState extends State<IngredientEditScreen> {
               inventoryProvider.updateElement(
                   widget._ingredientItem.id, widget._ingredientItem);
 
-              InventoryJson().updateElementOnFirebase(widget._ingredientItem.id, widget._ingredientItem);
+              InventoryFirestore().updateElementOnFirebase(widget._ingredientItem.id, widget._ingredientItem);
 
               Navigator.pop(context);
             },

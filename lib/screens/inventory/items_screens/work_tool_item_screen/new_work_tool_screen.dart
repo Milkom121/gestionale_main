@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gestionale_main/back_end/database/inventory_json.dart';
+import 'package:gestionale_main/back_end/database/inventory_firestore.dart';
 import 'package:gestionale_main/data/inventory.dart';
-import 'package:gestionale_main/models/real_items/disposable.dart';
-import 'package:gestionale_main/models/real_items/ingredient.dart';
-import 'package:gestionale_main/models/real_items/reselling_product.dart';
-import 'package:gestionale_main/models/real_items/servicies_tools.dart';
+
 import 'package:gestionale_main/models/real_items/work_tools.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +10,7 @@ class NewWorkTooItemScreen extends StatefulWidget {
 
   WorkTool _newWorkToolItem = WorkTool(
     id: 'id',
+    dealer: 'dealer',
     imageReference: 'imageReference',
     title: 'title',
     actualAvailability: 0,
@@ -32,7 +30,7 @@ class _NewWorkTooItemScreenState
   @override
   Widget build(BuildContext context) {
     final _inventoryProvider = Provider.of<Inventory>(context);
-    WorkTool _workToolItem = widget._newWorkToolItem;
+
     return Column(
       children: [
         SizedBox(
@@ -66,11 +64,12 @@ class _NewWorkTooItemScreenState
                     return null;
                   },
                   onSaved: (value) {
-
+                    WorkTool _workToolItem = widget._newWorkToolItem;
 
                     print(value);
                     widget._newWorkToolItem = WorkTool(
                       id: _workToolItem.id,
+                      dealer: _workToolItem.dealer,
                       imageReference: _workToolItem.imageReference,
                       title: value!,
                       actualAvailability: _workToolItem.actualAvailability,
@@ -96,10 +95,11 @@ class _NewWorkTooItemScreenState
                     return null;
                   },
                   onSaved: (value) {
-
+                    WorkTool _workToolItem = widget._newWorkToolItem;
                     print(value);
                     widget._newWorkToolItem = WorkTool(
                       id: _workToolItem.id,
+                      dealer: _workToolItem.dealer,
                       imageReference: _workToolItem.imageReference,
                       title: _workToolItem.category,
                       actualAvailability: _workToolItem.actualAvailability,
@@ -129,10 +129,11 @@ class _NewWorkTooItemScreenState
                     return null;
                   },
                   onSaved: (value) {
-
+                    WorkTool _workToolItem = widget._newWorkToolItem;
                     print(value);
                     widget._newWorkToolItem = WorkTool(
                       id: _workToolItem.id,
+                      dealer: _workToolItem.dealer,
                       imageReference: _workToolItem.imageReference,
                       title: _workToolItem.title,
                       actualAvailability: int.parse(value!),
@@ -155,7 +156,7 @@ class _NewWorkTooItemScreenState
                         _inventoryProvider.addNewElementToCorrectInventoryAndID(widget._newWorkToolItem);
                       });
 
-                      InventoryJson().addNewElementToCorrectFirebaseDocument(widget._newWorkToolItem);
+                      InventoryFirestore().addNewElementToCorrectFirebaseCollection(widget._newWorkToolItem);
 
                       Navigator.pop(context);
                     },

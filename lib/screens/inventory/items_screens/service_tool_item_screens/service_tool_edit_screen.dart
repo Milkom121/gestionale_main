@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gestionale_main/back_end/database/inventory_json.dart';
+import 'package:gestionale_main/back_end/database/inventory_firestore.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/servicies_tools.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +47,7 @@ class _ServiceToolEditScreenState extends State<ServiceToolEditScreen> {
 
               inventoryProvider.updateElement(widget._serviceToolItem.id, widget._serviceToolItem);
 
-              InventoryJson().updateElementOnFirebase(widget._serviceToolItem.id, widget._serviceToolItem);
+              InventoryFirestore().updateElementOnFirebase(widget._serviceToolItem.id, widget._serviceToolItem);
 
               Navigator.pop(context);
 
@@ -94,6 +94,7 @@ class _ServiceToolEditScreenState extends State<ServiceToolEditScreen> {
                           print(value);
                           widget._serviceToolItem = ServiceTool(
                             id: _serviceTool.id,
+                            dealer: _serviceTool.dealer,
                             imageReference: _serviceTool.imageReference,
                             title: value!,
                             actualAvailability: _serviceTool.actualAvailability,
@@ -123,6 +124,7 @@ class _ServiceToolEditScreenState extends State<ServiceToolEditScreen> {
                           print(value);
                           widget._serviceToolItem = ServiceTool(
                             id: _serviceTool.id,
+                            dealer: _serviceTool.dealer,
                             imageReference: _serviceTool.imageReference,
                             title: value!,
                             actualAvailability: _serviceTool.actualAvailability,
@@ -156,6 +158,7 @@ class _ServiceToolEditScreenState extends State<ServiceToolEditScreen> {
                           print(value);
                           widget._serviceToolItem =ServiceTool(
                             id: _serviceTool.id,
+                            dealer: _serviceTool.dealer,
                             imageReference: _serviceTool.imageReference,
                             title: value!,
                             actualAvailability: _serviceTool.actualAvailability,

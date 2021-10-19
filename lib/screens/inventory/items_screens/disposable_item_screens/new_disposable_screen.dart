@@ -2,33 +2,28 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gestionale_main/back_end/database/inventory_json.dart';
+import 'package:gestionale_main/back_end/database/inventory_firestore.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:provider/provider.dart';
 
-
 class NewDisposableItemScreen extends StatefulWidget {
-
-
-
   Disposable _newDisposableItem = Disposable(
-      id: 'id',
-      imageReference: 'imageReference',
-      title: 'title',
-      category: 'category',
-      trashCan: 'trashCan',
-      actualAvailability: 0,
-      dealer: 'dealer',
-      maxSupply: 0,
-      purchasePrice: 0,
-      sellingPrice: 0,
+    id: 'id',
+    imageReference: 'imageReference',
+    title: 'title',
+    category: 'category',
+    trashCan: 'trashCan',
+    actualAvailability: 0,
+    dealer: 'dealer',
+    maxSupply: 0,
+    purchasePrice: 0,
+    sellingPrice: 0,
   );
 
-
-
   @override
-  _NewDisposableItemScreenState createState() => _NewDisposableItemScreenState();
+  _NewDisposableItemScreenState createState() =>
+      _NewDisposableItemScreenState();
 }
 
 class _NewDisposableItemScreenState extends State<NewDisposableItemScreen> {
@@ -36,21 +31,19 @@ class _NewDisposableItemScreenState extends State<NewDisposableItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final _inventoryProvider = Provider.of<Inventory>(context);
 
     return Column(
       children: [
-
-        SizedBox(height: 50,),
-
+        SizedBox(
+          height: 50,
+        ),
         Center(
           child: CircleAvatar(
             radius: 50,
             child: Image.asset(widget._newDisposableItem.imageReference),
           ),
         ),
-
         Form(
           key: _formKey,
           child: Column(
@@ -247,7 +240,8 @@ class _NewDisposableItemScreenState extends State<NewDisposableItemScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
-                  initialValue: widget._newDisposableItem.purchasePrice.toString(),
+                  initialValue:
+                      widget._newDisposableItem.purchasePrice.toString(),
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -285,7 +279,8 @@ class _NewDisposableItemScreenState extends State<NewDisposableItemScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 35),
                 child: TextFormField(
-                  initialValue: widget._newDisposableItem.sellingPrice.toString(),
+                  initialValue:
+                      widget._newDisposableItem.sellingPrice.toString(),
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -365,15 +360,14 @@ class _NewDisposableItemScreenState extends State<NewDisposableItemScreen> {
                       _formKey.currentState!.save();
 
                       setState(() {
-                        _inventoryProvider.addNewElementToCorrectInventoryAndID(widget._newDisposableItem);
-
+                        _inventoryProvider.addNewElementToCorrectInventoryAndID(
+                            widget._newDisposableItem);
                       });
-                      InventoryJson().addNewElementToCorrectFirebaseDocument(widget._newDisposableItem);
 
+                      InventoryFirestore().addNewElementToCorrectFirebaseCollection(
+                          widget._newDisposableItem);
 
                       Navigator.pop(context);
-
-
                     },
                     child: const Text('Save'),
                   ),
@@ -382,8 +376,6 @@ class _NewDisposableItemScreenState extends State<NewDisposableItemScreen> {
             ],
           ),
         ),
-
-
       ],
     );
   }

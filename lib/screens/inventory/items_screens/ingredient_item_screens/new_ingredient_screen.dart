@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gestionale_main/back_end/database/inventory_json.dart';
+import 'package:gestionale_main/back_end/database/inventory_firestore.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:gestionale_main/models/real_items/ingredient.dart';
@@ -31,10 +31,12 @@ class NewIngredientItemScreen extends StatefulWidget {
 class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
   final _formKey = GlobalKey<FormState>();
 
+
+
   @override
   Widget build(BuildContext context) {
     final _inventoryProvider = Provider.of<Inventory>(context);
-    Ingredient ingredient = widget._newIngredientItem;
+    //Ingredient ingredient = widget._newIngredientItem;
     return Column(
       children: [
         SizedBox(
@@ -67,6 +69,9 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                     return null;
                   },
                   onSaved: (value) {
+
+                    Ingredient ingredient = widget._newIngredientItem;
+
                     print(value);
                     widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
@@ -105,6 +110,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                     return null;
                   },
                   onSaved: (value) {
+                    Ingredient ingredient = widget._newIngredientItem;
                     print(value);
                     widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
@@ -143,6 +149,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                     return null;
                   },
                   onSaved: (value) {
+                    Ingredient ingredient = widget._newIngredientItem;
                     print(value);
                     widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
@@ -184,6 +191,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                     return null;
                   },
                   onSaved: (value) {
+                    Ingredient ingredient = widget._newIngredientItem;
                     print(value);
                     widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
@@ -224,6 +232,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                     return null;
                   },
                   onSaved: (value) {
+                    Ingredient ingredient = widget._newIngredientItem;
                     print(value);
                     widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
@@ -306,6 +315,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                     return null;
                   },
                   onSaved: (value) {
+                    Ingredient ingredient = widget._newIngredientItem;
                     print(value);
                     widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
@@ -391,6 +401,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                     return null;
                   },
                   onSaved: (value) {
+                    Ingredient ingredient = widget._newIngredientItem;
                     print(value);
                     widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
@@ -429,6 +440,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
                     return null;
                   },
                   onSaved: (value) {
+                    Ingredient ingredient = widget._newIngredientItem;
                     print(value);
                     widget._newIngredientItem = Ingredient(
                       id: ingredient.id,
@@ -462,7 +474,7 @@ class _NewIngredientItemScreenState extends State<NewIngredientItemScreen> {
 
                       });
 
-                      InventoryJson().addNewElementToCorrectFirebaseDocument(widget._newIngredientItem);
+                      InventoryFirestore().addNewElementToCorrectFirebaseCollection(widget._newIngredientItem);
 
                       Navigator.pop(context);
                     },

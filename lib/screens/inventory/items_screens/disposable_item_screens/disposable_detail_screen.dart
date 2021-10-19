@@ -3,7 +3,9 @@
 
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:gestionale_main/back_end/database/inventory_firestore.dart';
 import 'package:gestionale_main/data/inventory.dart';
 import 'package:gestionale_main/models/real_items/disposable.dart';
 import 'package:gestionale_main/screens/inventory/items_screens/disposable_item_screens/disposable_edit_screen.dart';
@@ -50,104 +52,117 @@ class _DisposableDetailScreenState extends State<DisposableDetailScreen> {
           ),
         ],
       ),
-      body: Consumer<Inventory>(builder: (context, inventory, child) {
+      body: Consumer<InventoryFirestore>(builder: (context, inventoryJson, child) {
 
         /// creo un riferimento all'oggetto presente effettivamente nel database, che è una entità diversa rispetto al Disposable che viene passato col costruttore, così da mostrare le modifiche in diretta in questo schermo
-        Disposable disposableObjectInInventory = inventory.disposables[inventory.disposables.indexWhere(
-             (element) => element.id == widget.disposableObject.id)];
+        // Disposable disposableObjectInInventory = inventory.disposables[inventory.disposables.indexWhere(
+        //      (element) => element.id == widget.disposableObject.id)];
 
-        return Container(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
+        //TODO devo creare il riferimento all'oggetto nel db firestore
 
 
-              Center(
+        return StreamBuilder<QuerySnapshot>(
+          stream: inventoryJson.disposablesCollection.snapshots(),
+          builder: (context, snapshot) {
+            DocumentSnapshot disposableMap =
+            snapshot.data!.docs[snapshot.data!.docs.indexWhere(
+                   (element) => element.id == widget.disposableObject.id)];
+            return Container(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    CircleAvatarImagePicker(null),
-                    Text(disposableObjectInInventory.title, style: TextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold,
-                    ),)
-                  ],
-                ),
-              ),
 
-              SizedBox(height: 30,),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text('Dealer',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold
-                          ),),
-                        SizedBox(height: 10,),
-                        Text(disposableObjectInInventory.dealer)
-                      ],
+                    Center(
+                      child: Column(
+                        children: [
+                          CircleAvatarImagePicker(null),
+                          Text(disposableMap['title'], style: TextStyle(
+                            fontSize: 23,
+                            fontWeight: FontWeight.bold,
+                          ),)
+                        ],
+                      ),
                     ),
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text('Max Supply',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold
-                          ),),
-                        SizedBox(height: 10,),
-                        Text(disposableObjectInInventory.maxSupply.toString()),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: 15,),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
+                    SizedBox(height: 30,),
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text('Buy Price',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold
-                          ),),
-                        SizedBox(height: 10,),
-                        Text(disposableObjectInInventory.purchasePrice.toString())
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('Dealer',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold
+                                ),),
+                              SizedBox(height: 10,),
+                              Text(disposableMap['dealer'])
+                            ],
+                          ),
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('Max Supply',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold
+                                ),),
+                              SizedBox(height: 10,),
+                              Text(disposableMap['maxSupply'].toString()),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 15,),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('Buy Price',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold
+                                ),),
+                              SizedBox(height: 10,),
+                              Text(disposableMap['purchasePrice'].toString())
+                            ],
+                          ),
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('Sell Price',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold
+                                ),),
+                              SizedBox(height: 10,),
+                              Text(disposableMap['sellingPrice'].toString()),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text('Sell Price',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold
-                          ),),
-                        SizedBox(height: 10,),
-                        Text(disposableObjectInInventory.sellingPrice.toString()),
-                      ],
-                    )
+
                   ],
                 ),
               ),
-
-
-            ],
-          ),
-        ),
-      );}
+            ),
+      );
+          }
+        );}
     ),);
   }
 }
